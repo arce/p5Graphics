@@ -1,8 +1,9 @@
 #include <string.h>
 #include <stdlib.h>
+#include <VG/openvg.h>
 #include "p5Transform.h"
 
-static void p5_popMatrix() {
+ void p5_popMatrix() {
   Matrix* temp = mtrx_stack;
   mtrx_stack = mtrx_stack->next;
   
@@ -12,7 +13,7 @@ static void p5_popMatrix() {
   vgLoadMatrix(temp->data);
 }
 
-static void p5_printMatrix() {
+ void p5_printMatrix() {
   Matrix* temp = mtrx_stack;
   int i,j;
   for (i=0;i<3;i++) {
@@ -22,7 +23,7 @@ static void p5_printMatrix() {
   }
 }
 
-static void p5_pushMatrix() {
+ void p5_pushMatrix() {
   Matrix* temp;
   temp = mtrx_new();
   
@@ -34,42 +35,42 @@ static void p5_pushMatrix() {
   mtrx_stack = temp;
 }
 
-static void p5_resetMatrix() {
+ void p5_resetMatrix() {
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
   vgLoadIdentity();
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
   vgLoadIdentity();
 }
 
-static void p5_rotate(float angle) {
+ void p5_rotate(float angle) {
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
   vgRotate(angle);
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
   vgRotate(angle);
 }
 
-static void p5_scale(int sx, int sy) {
+ void p5_scale(int sx, int sy) {
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
   vgScale(sx,sy);
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
   vgScale(sx,sy);
 }
 
-static void p5_shearX(float angle) {
+ void p5_shearX(float angle) {
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
   vgShear(angle,0.0f);
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
   vgShear(angle,0.0f);
 }
 
-static void p5_shearY(float angle) {
+ void p5_shearY(float angle) {
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
   vgShear(0.0f,angle);
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
   vgShear(0.0f,angle);
 }
 
-static void p5_translate(float dx, float dy) {
+ void p5_translate(float dx, float dy) {
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
   vgTranslate(dx,dy);
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);

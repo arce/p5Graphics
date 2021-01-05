@@ -1,8 +1,7 @@
 #include "p5Shapes.h"
 #include "p5Math.h"
-#include "p5Transform.h"
 
-static void createPaths() {
+void createPaths() {
 
   VGbitfield capabilites =
       VG_PATH_CAPABILITY_APPEND_TO | VG_PATH_CAPABILITY_MODIFY;
@@ -53,8 +52,7 @@ static void createPaths() {
                             0.0f, 2, 6, capabilites);
 }
 
-static void p5_arc(float x, float y, float a, float _start, float _stop,
-                   int type) {
+void p5_arc(float x, float y, float a, float _start, float _stop, int type) {
   VGUArcType arcType = VGU_ARC_PIE;
   VGfloat b, start, stop;
   b = a;
@@ -89,7 +87,7 @@ static void p5_arc(float x, float y, float a, float _start, float _stop,
   vgDrawPath(arc_path, fillEnable | strokeEnable);
 }
 
-static void _ellipse(VGfloat cx, VGfloat cy, VGfloat w, VGfloat h) {
+void _ellipse(VGfloat cx, VGfloat cy, VGfloat w, VGfloat h) {
   VGfloat coords[12] = {cx + w / 2, cy,       w * 0.5f, h * 0.5f, 0.0f, -w,
                         0.0f,       w * 0.5f, h * 0.5f, 0.0f,     w,    0.0f};
 
@@ -118,11 +116,9 @@ static void _ellipse(VGfloat cx, VGfloat cy, VGfloat w, VGfloat h) {
   vgDrawPath(ellipse_path, fillEnable | strokeEnable);
 }
 
-static void p5_circle(float x, float y, float a) { _ellipse(x, y, a, a); }
+void p5_circle(float x, float y, float a) { _ellipse(x, y, a, a); }
 
-static void p5_ellipse(float x, float y, float a, float b) {
-  _ellipse(x, y, a, b);
-}
+void p5_ellipse(float x, float y, float a, float b) { _ellipse(x, y, a, b); }
 
 void p5_line(float x, float y, float a, float b) {
   const VGfloat coords[4] = {x, y, a, b};
@@ -132,24 +128,24 @@ void p5_line(float x, float y, float a, float b) {
     vgDrawPath(line_path, VG_STROKE_PATH);
 }
 
-static void p5_point(float x, float y) {
+void p5_point(float x, float y) {
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
-  vgGetMatrix(backup);
+  vgGetMatrix(s_backup);
   vgTranslate(x, y);
   if (fillEnable)
     vgDrawPath(point_path, VG_FILL_PATH);
-  vgLoadMatrix(backup);
+  vgLoadMatrix(s_backup);
 }
 
-static void p5_quad(float x, float y, float a, float b, float c, float d,
-                    float e, float f) {
-  const VGfloat coords[8] = {x,y,a,b,c,d,e,f};
+void p5_quad(float x, float y, float a, float b, float c, float d, float e,
+             float f) {
+  const VGfloat coords[8] = {x, y, a, b, c, d, e, f};
 
   vgModifyPathCoords(quad_path, 0, 4, coords);
   vgDrawPath(quad_path, fillEnable | strokeEnable);
 }
 
-static void _rect(float a, float b, float c, float d) {
+void _rect(float a, float b, float c, float d) {
   VGfloat coords[5] = {a, b, c, d, -c};
 
   switch (rectMode) {
@@ -177,64 +173,59 @@ static void _rect(float a, float b, float c, float d) {
   vgDrawPath(rect_path, fillEnable | strokeEnable);
 }
 
-static void p5_rect(float a, float b, float c, float d) { _rect(a, b, c, d); }
+void p5_rect(float a, float b, float c, float d) { _rect(a, b, c, d); }
 
-static void p5_square(float a, float b, float c) { _rect(a, b, c, c); }
+void p5_square(float a, float b, float c) { _rect(a, b, c, c); }
 
-static void p5_triangle(float x, float y, float a, float b, float c, float d) {
+void p5_triangle(float x, float y, float a, float b, float c, float d) {
   const VGfloat coords[6] = {x, y, a, b, c, d};
 
   vgModifyPathCoords(quad_path, 0, 3, coords);
   vgDrawPath(quad_path, fillEnable | strokeEnable);
 }
 
-static void p5_bezier(float x, float y, float a, float b, float c, float d,
-                      float e, float f) {
+void p5_bezier(float x, float y, float a, float b, float c, float d, float e,
+               float f) {
   const VGfloat coords[8] = {x, y, a, b, c, d, e, f};
 
   vgModifyPathCoords(bezier_path, 0, 2, coords);
   vgDrawPath(bezier_path, fillEnable | strokeEnable);
 }
 
-static void p5_curve(float x, float y, float a, float b, float c, float d) {
+void p5_curve(float x, float y, float a, float b, float c, float d) {
   const VGfloat coords[6] = {x, y, a, b, c, d};
 
   vgModifyPathCoords(curve_path, 0, 2, coords);
   vgDrawPath(curve_path, fillEnable | strokeEnable);
 }
 
-static void p5_ellipseMode(int mode) { ellipseMode = mode; }
+void p5_ellipseMode(int mode) { ellipseMode = mode; }
 
-static void p5_rectMode(int mode) { rectMode = mode; }
+void p5_rectMode(int mode) { rectMode = mode; }
 
-static void p5_strokeCap(int cap) { vgSeti(VG_STROKE_CAP_STYLE, cap); }
+void p5_strokeCap(int cap) { vgSeti(VG_STROKE_CAP_STYLE, cap); }
 
-static void p5_strokeJoin(int join) { vgSeti(VG_STROKE_JOIN_STYLE, join); }
+void p5_strokeJoin(int join) { vgSeti(VG_STROKE_JOIN_STYLE, join); }
 
-static void p5_strokeWeight(float weight) {
-  vgSetf(VG_STROKE_LINE_WIDTH, weight);
-}
+void p5_strokeWeight(float weight) { vgSetf(VG_STROKE_LINE_WIDTH, weight); }
 
-static void p5_strokeMiter(float miter) {
-  vgSetf(VG_STROKE_MITER_LIMIT, miter);
-}
+void p5_strokeMiter(float miter) { vgSetf(VG_STROKE_MITER_LIMIT, miter); }
 
-static void p5_beginShape(int kindShape) {
+void p5_beginShape(int kindShape) {
   shape_path = vgCreatePath(VG_PATH_FORMAT_STANDARD, VG_PATH_DATATYPE_F, 1.0f,
                             0.0f, 4, 4, VG_PATH_CAPABILITY_APPEND_TO);
   pathSize = 0;
 }
 
-static void p5_bezierVertex(float x, float y, float a, float b, float c,
-                            float d) {
+void p5_bezierVertex(float x, float y, float a, float b, float c, float d) {
   VGubyte seg = VG_CUBIC_TO;
   const VGfloat coords[6] = {x, y, a, b, c, d};
   vgAppendPathData(shape_path, 1, &seg, coords);
 }
 
-static void p5_curveVertex() {}
+void p5_curveVertex() {}
 
-static void p5_endShape(int mode) {
+void p5_endShape(int mode) {
   VGubyte seg = -1;
   if (mode == 1) {
     seg = VG_CLOSE_PATH;
@@ -244,13 +235,13 @@ static void p5_endShape(int mode) {
   vgDrawPath(shape_path, fillEnable | strokeEnable);
 }
 
-static void p5_quadraticVertex(float x, float y, float w, float h) {
+void p5_quadraticVertex(float x, float y, float w, float h) {
   VGubyte seg = VG_QUAD_TO;
   const VGfloat coords[4] = {x, y, w, h};
   vgAppendPathData(shape_path, 1, &seg, coords);
 }
 
-static void p5_vertex(int x, int y) {
+void p5_vertex(int x, int y) {
   VGubyte seg;
   int closePath = 0;
   int points = 0;
@@ -303,7 +294,7 @@ static void p5_vertex(int x, int y) {
   }
 }
 
-static int p5_saveShape(int seg) {
+int p5_saveShape(int seg) {
   if (seg == 1) {
     seg = VG_CLOSE_PATH;
     VGfloat data = 0.0f;
@@ -314,13 +305,13 @@ static int p5_saveShape(int seg) {
   return pathCount;
 }
 
-static void p5_shape(int pid, int w, int h) {
+void p5_shape(int pid, int w, int h) {
   const VGfloat coords[9] = {1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, w, h, 1.0f};
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
-  vgGetMatrix(backup);
+  vgGetMatrix(s_backup);
   vgMultMatrix(coords);
   vgDrawPath(shape_paths[pid], fillEnable | strokeEnable);
-  vgLoadMatrix(backup);
+  vgLoadMatrix(s_backup);
 }
 
-static void p5_shapeMode(int mode) { shapeMode = mode; }
+void p5_shapeMode(int mode) { shapeMode = mode; }

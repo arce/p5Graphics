@@ -1,4 +1,4 @@
 all: main
-CC = gcc
+CC = cc
 main: main.c
-	$(CC) -fno-common -v main.c -o main -framework OpenGL -lOpenVG -lp5graphics -I../src -I../include -L.
+	$(CC) main.c -o main -framework OpenGL -lOpenVG -lp5graphics -lglfw -I../src -I../include -L. -I.

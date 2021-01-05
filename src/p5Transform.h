@@ -10,22 +10,22 @@
  -- it under the terms of the MIT license. See LICENSE for details.
  --
  */
+#ifndef P5TRANSFORM_H
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <VG/openvg.h>
 
-VGfloat backup[9];
+float backup[9];
 
 typedef struct Matrix {
-  VGfloat data[9];
+  float data[9];
   struct Matrix *next;
 } Matrix;
 
-struct Matrix *mtrx_stack = NULL;
+ struct Matrix *mtrx_stack = NULL;
 
-Matrix *mtrx_new() {
+ Matrix *mtrx_new() {
   Matrix *mtrx;
   mtrx = malloc(sizeof(Matrix));
   memset(mtrx,0,sizeof(Matrix));
@@ -48,22 +48,24 @@ Matrix *mtrx_new() {
 // shearY()
 // translate()
 
-//static void p5_applyMatrix();
+// void p5_applyMatrix();
 
-static void p5_popMatrix();
+ void p5_popMatrix();
 
-static void p5_printMatrix();
+ void p5_printMatrix();
 
-static void p5_pushMatrix();
+ void p5_pushMatrix();
 
-static void p5_resetMatrix();
+ void p5_resetMatrix();
 
-static void p5_rotate(float angle);
+ void p5_rotate(float angle);
 
-static void p5_scale(int sx, int sy);
+ void p5_scale(int sx, int sy);
 
-static void p5_shearX(float angle);
+ void p5_shearX(float angle);
 
-static void p5_shearY(float angle);
+ void p5_shearY(float angle);
 
-static void p5_translate(float dx, float dy);
+ void p5_translate(float dx, float dy);
+
+#endif

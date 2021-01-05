@@ -1,15 +1,18 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define STB_IMAGE_IMPLEMENTATION
+
 #include "p5Image.h"
-#include "p5Transform.h"
 #include <STB/stb_image.h>
 #include <VG/openvg.h>
+
+float i_backup[9];
 
 // Image commands:
 // createImage()
 
-static int p5_createImage(int width, int height) {
+ int p5_createImage(int width, int height) {
   imageCount++;
   unsigned int lilEndianTest = 1;
   VGImageFormat rgbaFormat;
@@ -34,18 +37,18 @@ static int p5_createImage(int width, int height) {
 // requestImage()
 // tint()
 
-static int p5_imageWidth(int imageId) { return (iWidth[imageId]); }
+ int p5_imageWidth(int imageId) { return (iWidth[imageId]); }
 
-static int p5_imageHeight(int imageId) { return iHeight[imageId]; }
+ int p5_imageHeight(int imageId) { return iHeight[imageId]; }
 
-static void p5_image(int imageId, int x, int y, int w, int h) {
+ void p5_image(int imageId, int x, int y, int w, int h) {
   VGPaint fill;
   if (w == 0)
     w = iWidth[imageId];
   if (h == 0)
     h = iHeight[imageId];
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
-  vgGetMatrix(backup);
+  vgGetMatrix(i_backup);
   switch (_imageMode) {
   case P5_CENTER:
     x = x - w / 2;
@@ -67,10 +70,10 @@ static void p5_image(int imageId, int x, int y, int w, int h) {
                              1.0f};
   vgMultMatrix(coords);
   vgDrawImage(images[imageId]);
-  vgLoadMatrix(backup);
+  vgLoadMatrix(i_backup);
 }
 
-static void p5_imageMode(int imageMode) { _imageMode = imageMode; }
+ void p5_imageMode(int imageMode) { _imageMode = imageMode; }
 
 VGImage _createImageFromMemory(unsigned char const *buffer, int len, int *w,
                                int *h) {
@@ -138,14 +141,14 @@ VGImage _createImageFromFile(const char *filename, int *w, int *h) {
   return img;
 }
 
-static int P5_ImportImage(uint8_t *buffer, int len) {
+ int P5_ImportImage(uint8_t *buffer, int len) {
   imageCount++;
   images[imageCount] = _createImageFromMemory(buffer, len, &iWidth[imageCount],
                                               &iHeight[imageCount]);
   return imageCount;
 }
 
-static int p5_loadImage(char *filename) {
+ int p5_loadImage(char *filename) {
   imageCount++;
   images[imageCount] =
       _createImageFromFile(filename, &iWidth[imageCount], &iHeight[imageCount]);
@@ -162,7 +165,7 @@ static int p5_loadImage(char *filename) {
 // set()
 // updatePixels()
 
-static void p5_loadPixels(int imageId) {
+ void p5_loadPixels(int imageId) {
   VGImage image = images[imageId];
   int width = iWidth[imageId], height = iHeight[imageId];
   uint32_t n = width * height;
@@ -182,7 +185,7 @@ static void p5_loadPixels(int imageId) {
   (*parray)[3] = ((n)&0xFF);
 }
 
-static void p5_updatePixels(int imageId, uint8_t **parray) {
+ void p5_updatePixels(int imageId, uint8_t **parray) {
   VGImage image = images[imageId];
   int width = iWidth[imageId], height = iHeight[imageId];
 
@@ -200,10 +203,10 @@ static void p5_updatePixels(int imageId, uint8_t **parray) {
 // clip()
 // noClip()
 
-static void p5_clip(int x, int y, int w, int h) {
+ void p5_clip(int x, int y, int w, int h) {
   vgSetiv(VG_SCISSORING, VG_TRUE, 0);
   VGint coords[4] = {x, y, w, h};
   vgSetiv(VG_SCISSOR_RECTS, 4, coords);
 }
 
-static void p5_noClip() { vgSetiv(VG_SCISSORING, VG_FALSE, 0); }
+ void p5_noClip() { vgSetiv(VG_SCISSORING, VG_FALSE, 0); }
