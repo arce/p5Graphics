@@ -8,10 +8,8 @@
 
 #ifndef P5STRUCTURE_H
 
-#include "p5Context.h"
+#include "p5Style.h"
 #include <stdbool.h>
-
-struct Context *curr;
 
 VGPaint strokePaint;
 VGPaint fillPaint;
@@ -35,13 +33,13 @@ double p5_time();
 
 extern float backup[9];
 
-extern int _frameCount;
+int _frameCount;
 
-extern int _frameRate;
+int _frameRate;
 
-extern int _height;
+int _height;
 
-extern int _width;
+int _width;
 
 void p5_mainLoop();
 

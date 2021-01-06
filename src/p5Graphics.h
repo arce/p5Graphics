@@ -1,11 +1,10 @@
-#include "p5Context.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include <VG/openvg.h>
 #include <VG/vgu.h>
 #include <stdlib.h>
 
-struct Context *curr;
+struct Style *curr;
 
 VGPaint strokePaint;
 VGPaint fillPaint;
@@ -61,10 +60,6 @@ void p5_smooth();
 
 int p5_width();
 
-extern bool strokeEnable;
-
-extern bool fillEnable;
-
 void p5_background(int32_t rgba);
 
 void p5_fill(int32_t rgba);
@@ -100,13 +95,6 @@ int p5_red(int32_t rgba);
 #define P5_LINES 3
 #define P5_TRIANGLES 4
 #define P5_QUADS 5
-
-int ellipseMode;
-int rectMode;
-int shapeMode;
-
-bool fillEnable;
-bool strokeEnable;
 
 int pathSize;
 int kindShape;

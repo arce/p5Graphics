@@ -13,8 +13,12 @@
 
 #ifndef P5COLOR_H
 
-#include "p5Context.h"
+#include "p5Style.h"
 #include <stdint.h>
+
+extern struct Style *curr;
+extern VGPaint strokePaint;
+extern VGPaint fillPaint;
 
 /**
  * The p5_background() function sets the color used for the background of
@@ -23,9 +27,6 @@
  * of each frame, but it can be used inside p5_setup() to set the background on
  * the first frame of animation or if the backgound need only be set once.
  */
-
-extern bool strokeEnable;
-extern bool fillEnable;
 
 void p5_background(int32_t rgba);
 

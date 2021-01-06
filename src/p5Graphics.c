@@ -1819,7 +1819,7 @@ void vg_call(char *fn_name) {
   
   if ((error = lua_pcall(L, 0, 0, 0)))
     bail(L, error, "Error running script\n");
-  frameCount++;
+   frameCount++;
 }
 
 void vg_resize(int w, int h) {

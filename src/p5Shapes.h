@@ -31,32 +31,19 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define P5_PIE 0
-#define P5_CHORD 1
-#define P5_OPEN 2
-#define P5_CORNERS 3
-#define P5_CENTER 4
-#define P5_RADIUS 5
-#define P5_CORNER 6
-
 #define P5_POINTS 1
 #define P5_POLYLINE 2
 #define P5_LINES 3
 #define P5_TRIANGLES 4
 #define P5_QUADS 5
 
-int ellipseMode;
-int rectMode;
-int shapeMode;
-
-bool fillEnable;
-bool strokeEnable;
-
 int pathSize;
 int kindShape;
 int pathCount;
 
 float s_backup[9];
+
+extern struct Style *curr;
 
 VGPath arc_path = VG_INVALID_HANDLE;
 VGPath ellipse_path = VG_INVALID_HANDLE;

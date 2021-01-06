@@ -13,12 +13,10 @@ void p5_background(int32_t rgba) {
   _splitColor(color, rgba);
   vgSeti(VG_SCISSORING, VG_FALSE);
   vgSetfv(VG_CLEAR_COLOR, 4, color);
-  vgClear(0, 0, 640, 480);
+  vgClear(0, 0,p5_width(), p5_height());
 }
 
 void p5_fill(int32_t rgba) {
-  if (rgba == curr->fillColor)
-    return;
   curr->fillColor = rgba;
   vgSetColor(fillPaint, curr->fillColor);
   vgSetPaint(fillPaint, VG_FILL_PATH);
@@ -36,8 +34,6 @@ void p5_noStroke() {
 }
 
 void p5_stroke(int32_t rgba) {
-  if (rgba == curr->strokeColor)
-    return;
   curr->strokeColor = rgba;
   vgSetColor(strokePaint, curr->strokeColor);
   vgSetPaint(strokePaint, VG_STROKE_PATH);
