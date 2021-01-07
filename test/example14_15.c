@@ -1,5 +1,5 @@
-#include "glfw_window.h"
 #include <p5Graphics.h>
+#include "glfw_window.h"
 
 // Learning Processing
 // Daniel Shiffman
@@ -14,7 +14,7 @@ float theta2 = 0;
 
 void setup() {
   p5_size(200, 200);
-  p5_set3DMode();
+  //p5_set3DMode();
   p5_frameRate(10);
 }
 

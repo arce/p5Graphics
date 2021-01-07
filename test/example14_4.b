@@ -22,22 +22,22 @@ void drawPyramid(int t) {
   // the parameter " t " determines the size of the pyramid
   p5_beginShape(P5_TRIANGLES);
 
-  p5_fillA(255, 150); // Note that each polygon can have its own color.
+  p5_fill(150); // Note that each polygon can have its own color.
   p5_vertex3d(-t, -t, -t);
   p5_vertex3d( t, -t, -t);
   p5_vertex3d( 0, 0, t);
 
-  p5_fillA(150, 150);
+  p5_fill(150);
   p5_vertex3d( t, -t, -t);
   p5_vertex3d( t, t, -t);
   p5_vertex3d( 0, 0, t);
 
-  p5_fillA(255, 150);
+  p5_fill(150);
   p5_vertex3d( t, t, -t);
   p5_vertex3d(-t, t, -t);
   p5_vertex3d( 0, 0, t);
 
-  p5_fill(150, 150);
+  p5_fill(150);
   p5_vertex3d(-t, t, -t);
   p5_vertex3d(-t, -t, -t);
   p5_vertex3d( 0, 0, t);

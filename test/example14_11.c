@@ -1,5 +1,5 @@
-#include "glfw_window.h"
 #include <p5Graphics.h>
+#include "glfw_window.h"
 
 // Learning Processing
 // Daniel Shiffman
@@ -21,7 +21,7 @@ void draw() {
 
   // scale() increases the dimensions of an object relative to the origin by a percentage (1.0 = 100%). 
   // Notice how in this example the scaling effect causes the outline of the shape to become thicker.
-  p5_scale(r); 
+  p5_scale(r,r); 
 
   // Display a rectangle in the middle of the screen
   p5_stroke(0);

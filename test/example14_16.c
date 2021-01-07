@@ -1,5 +1,5 @@
-#include "glfw_window.h"
 #include <p5Graphics.h>
+#include "glfw_window.h"
 
 // Learning Processing
 // Daniel Shiffman
@@ -22,14 +22,14 @@ void draw() {
 
    // Translate to center of window to draw the sun.
    p5_translate(p5_width()/2, p5_height()/2);
-   p5_fill(255, 200, 50);
+   p5_fill(p5_color(255, 200, 50,255));
    p5_ellipse(0, 0, 64, 64);
 
     // The earth rotates around the sun
    p5_pushMatrix();
    p5_rotate(theta);
    p5_translate(100, 0);
-   p5_fill(50, 200, 255);
+   p5_fill(p5_color(50, 200, 255,255));
    p5_ellipse(0, 0, 32, 32);
 
    // Moon #1 rotates around the earth
@@ -39,7 +39,7 @@ void draw() {
    p5_pushMatrix(); 
    p5_rotate(-theta*4);
    p5_translate(36, 0);
-   p5_fill(50, 255, 200);
+   p5_fill(p5_color(50, 255, 200,255));
    p5_ellipse(0, 0, 12, 12);
    p5_popMatrix();
 
@@ -47,7 +47,7 @@ void draw() {
    p5_pushMatrix();
    p5_rotate(theta*2);
    p5_translate(24, 0);
-   p5_fill(50, 255, 200);
+   p5_fill(p5_color(50, 255, 200,255));
    p5_ellipse(0, 0, 6, 6);
    p5_popMatrix();
 

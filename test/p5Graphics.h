@@ -1,5 +1,5 @@
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #define P5_NONE -1
 #define P5_PIE 0
@@ -167,7 +167,6 @@ void p5_shapeMode(int shapeMode);
 
 // p5Input.h
 
-
 int p5_mouseX();
 
 int p5_mouseY();
@@ -180,7 +179,7 @@ int p5_mouseButton();
 
 bool p5_isMousePressed();
 
-void p5_mouseEvent(int button,int state,int xpos, int ypos);
+void p5_mouseEvent(int button, int state, int xpos, int ypos);
 
 void p5_motionEvent(int xpos, int ypos);
 
@@ -228,3 +227,28 @@ void p5_shearX(float angle);
 void p5_shearY(float angle);
 
 void p5_translate(float dx, float dy);
+
+#define P5_PI 3.14159265358979323846f
+#define P5_TWO_PI 6.28318530718f
+#define P5_HALF_PI 1.57079632679f
+#define P5_QUARTER_PI 0.78539816339f
+
+float p5_constrain(float amt, float low, float high);
+
+float p5_dist(float x1, float y1, float x2, float y2);
+
+float P5_lerp(float a, float b, float f);
+
+float p5_mag(float x, float y);
+
+float p5_map(float value, float start1, float stop1, float start2, float stop2);
+
+float p5_norm(float value, float start1, float stop1);
+
+// Trigonometry functions:
+// degrees()
+// radians()
+
+float p5_degrees(float radians);
+
+float p5_radians(float degrees);
