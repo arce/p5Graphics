@@ -27,13 +27,13 @@
 #    define M_PI 3.14159265358979323846f
 #endif
 
-#define _deg(angleRadians) (angleRadians * 180.0 / M_PI)
-#define _rad(angleDegrees) (angleDegrees / 180.0 * M_PI)
-
 #define P5_PI 3.14159265358979323846f
 #define P5_TWO_PI 6.28318530718f
 #define P5_HALF_PI 1.57079632679f
 #define P5_QUARTER_PI 0.78539816339f
+
+#define _deg(angleRadians) (angleRadians * 180.0 / M_PI)
+#define _rad(angleDegrees) (angleDegrees / 180.0 * M_PI)
 
  float p5_constrain(float amt, float low, float high);
 

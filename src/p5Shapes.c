@@ -1,6 +1,26 @@
 #include "p5Shapes.h"
 #include "p5Style.h"
 #include "p5Math.h"
+#include <VG/vgu.h>
+
+int pathSize;
+int kindShape;
+int pathCount;
+
+float s_backup[9];
+
+VGPath arc_path = VG_INVALID_HANDLE;
+VGPath ellipse_path = VG_INVALID_HANDLE;
+VGPath line_path = VG_INVALID_HANDLE;
+VGPath point_path = VG_INVALID_HANDLE;
+VGPath quad_path = VG_INVALID_HANDLE;
+VGPath rect_path = VG_INVALID_HANDLE;
+VGPath triangle_path = VG_INVALID_HANDLE;
+VGPath bezier_path = VG_INVALID_HANDLE;
+VGPath curve_path = VG_INVALID_HANDLE;
+
+VGPath shape_path = VG_INVALID_HANDLE;
+VGPath shape_paths[100] = {VG_INVALID_HANDLE};
 
 void createPaths() {
 
@@ -86,6 +106,7 @@ void p5_arc(float x, float y, float a, float _start, float _stop, int type) {
   }
 
   vgDrawPath(arc_path, curr->fillEnable | curr->strokeEnable);
+	vgFinish();
 }
 
 void _ellipse(VGfloat cx, VGfloat cy, VGfloat w, VGfloat h) {
@@ -115,6 +136,7 @@ void _ellipse(VGfloat cx, VGfloat cy, VGfloat w, VGfloat h) {
 
   vgModifyPathCoords(ellipse_path, 0, 3, coords);
   vgDrawPath(ellipse_path, curr->fillEnable | curr->strokeEnable);
+	vgFinish();
 }
 
 void p5_circle(float x, float y, float a) { _ellipse(x, y, a, a); }
@@ -125,16 +147,20 @@ void p5_line(float x, float y, float a, float b) {
   const VGfloat coords[4] = {x, y, a, b};
 
   vgModifyPathCoords(line_path, 0, 2, coords);
-  if (curr->strokeEnable)
+  if (curr->strokeEnable!=0) {
     vgDrawPath(line_path, VG_STROKE_PATH);
+	  vgFinish();
+  }
 }
 
 void p5_point(float x, float y) {
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
   vgGetMatrix(s_backup);
   vgTranslate(x, y);
-  if (curr->fillEnable!=0)
+  if (curr->fillEnable!=0) {
     vgDrawPath(point_path, VG_FILL_PATH);
+		vgFinish();
+	}
   vgLoadMatrix(s_backup);
 }
 
@@ -144,6 +170,7 @@ void p5_quad(float x, float y, float a, float b, float c, float d, float e,
 
   vgModifyPathCoords(quad_path, 0, 4, coords);
   vgDrawPath(quad_path, curr->fillEnable | curr->strokeEnable);
+	vgFinish();
 }
 
 void _rect(float a, float b, float c, float d) {
@@ -172,6 +199,7 @@ void _rect(float a, float b, float c, float d) {
 
   vgModifyPathCoords(rect_path, 0, 4, coords);
   vgDrawPath(rect_path, curr->fillEnable | curr->strokeEnable);
+	vgFinish();
 }
 
 void p5_rect(float a, float b, float c, float d) { _rect(a, b, c, d); }
@@ -183,6 +211,7 @@ void p5_triangle(float x, float y, float a, float b, float c, float d) {
 
   vgModifyPathCoords(quad_path, 0, 3, coords);
   vgDrawPath(quad_path, curr->fillEnable | curr->strokeEnable);
+	vgFinish();
 }
 
 void p5_bezier(float x, float y, float a, float b, float c, float d, float e,
@@ -191,6 +220,7 @@ void p5_bezier(float x, float y, float a, float b, float c, float d, float e,
 
   vgModifyPathCoords(bezier_path, 0, 2, coords);
   vgDrawPath(bezier_path, curr->fillEnable | curr->strokeEnable);
+	vgFinish();
 }
 
 void p5_curve(float x, float y, float a, float b, float c, float d) {
@@ -198,6 +228,7 @@ void p5_curve(float x, float y, float a, float b, float c, float d) {
 
   vgModifyPathCoords(curve_path, 0, 2, coords);
   vgDrawPath(curve_path, curr->fillEnable | curr->strokeEnable);
+	vgFinish();
 }
 
 void p5_ellipseMode(int mode) { curr->ellipseMode = mode; }
@@ -246,6 +277,7 @@ void p5_endShape(int mode) {
     vgAppendPathData(shape_path, 1, &seg, &data);
   }
   vgDrawPath(shape_path, curr->fillEnable | curr->strokeEnable);
+	vgFinish();
 }
 
 void p5_quadraticVertex(float x, float y, float w, float h) {
@@ -324,6 +356,7 @@ void p5_shape(int pid, int w, int h) {
   vgGetMatrix(s_backup);
   vgMultMatrix(coords);
   vgDrawPath(shape_paths[pid], curr->fillEnable | curr->strokeEnable);
+	vgFinish();
   vgLoadMatrix(s_backup);
 }
 

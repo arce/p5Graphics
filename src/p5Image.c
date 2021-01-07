@@ -4,10 +4,18 @@
 #define STB_IMAGE_IMPLEMENTATION
 
 #include "p5Image.h"
+#include "p5Style.h"
 #include <STB/stb_image.h>
 #include <VG/openvg.h>
 
 float i_backup[9];
+
+#define MAX_IMAGES 100
+
+int imageCount = 0;
+int iWidth[MAX_IMAGES];
+int iHeight[MAX_IMAGES];
+uint8_t **images[MAX_IMAGES];
 
 // Image commands:
 // createImage()
@@ -49,7 +57,7 @@ float i_backup[9];
     h = iHeight[imageId];
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
   vgGetMatrix(i_backup);
-  switch (_imageMode) {
+  switch (curr->imageMode) {
   case P5_CENTER:
     x = x - w / 2;
     y = y - h / 2;
@@ -73,7 +81,7 @@ float i_backup[9];
   vgLoadMatrix(i_backup);
 }
 
- void p5_imageMode(int imageMode) { _imageMode = imageMode; }
+ void p5_imageMode(int imageMode) { curr->imageMode = imageMode; }
 
 VGImage _createImageFromMemory(unsigned char const *buffer, int len, int *w,
                                int *h) {

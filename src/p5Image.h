@@ -14,20 +14,10 @@
 
 #include <stdint.h>
 
+extern struct Style *curr;
+
 // Image commands:
 // createImage()
-
-#define MAX_IMAGES 100
-
-#define P5_CENTER 0
-#define P5_CORNERS 1
-
-int imageCount = 0;
-int iWidth[MAX_IMAGES];
-int iHeight[MAX_IMAGES];
-uint8_t **images[MAX_IMAGES];
-
-int _imageMode;
 
 int p5_createImage(int width, int height);
 

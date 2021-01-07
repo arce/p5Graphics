@@ -42,6 +42,8 @@ void p5_setupFunc(void (*func)());
 
 void p5_drawFunc(void (*func)());
 
+void p5_resizeFunc(void (*func)(int w, int h));
+
 int p5_init(int w, int h);
 
 int p5_frameCount();
@@ -89,12 +91,6 @@ int p5_red(int32_t rgba);
 #define P5_CENTER 4
 #define P5_RADIUS 5
 #define P5_CORNER 6
-
-#define P5_POINTS 1
-#define P5_POLYLINE 2
-#define P5_LINES 3
-#define P5_TRIANGLES 4
-#define P5_QUADS 5
 
 int pathSize;
 int kindShape;

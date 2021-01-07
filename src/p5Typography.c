@@ -6,6 +6,18 @@
 
 float m_backup[9];
 
+int fontId = 0;
+char ttf_buffer[1 << 24];
+int alignX = P5_LEFT;
+int alignY = P5_BASELINE;
+int textLeading;
+int fontCount = 1;
+VGFont fonts[100];
+int fHeight[100];
+int fSize[100];
+
+char mainPath[256];
+
 VGFont _createFontFromFile(const char *filename, unsigned short size) {
 
   stbtt_fontinfo font;

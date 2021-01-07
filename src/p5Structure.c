@@ -8,6 +8,8 @@ void (*setup_func)() = NULL;
 
 void (*draw_func)() = NULL;
 
+void (*resize_func)(int w, int h) = NULL;
+
 int _frameCount;
 
 int _frameRate;
@@ -108,6 +110,8 @@ void p5_setupFunc(void (*func)()) { setup_func = func; }
 
 void p5_drawFunc(void (*func)()) { draw_func = func; }
 
+void p5_resizeFunc(void (*func)(int x, int y)) { resize_func = func; }
+
 int p5_init(int w, int h) {
   vgCreateContextSH(w, h);
 
@@ -153,6 +157,8 @@ void p5_noSmooth() {}
 void p5_size(int width, int height) {
   _width = width;
   _height = height;
+	(*resize_func)(width,height);
+	vgResizeSurfaceSH(width,height);
 }
 
 void p5_smooth() {}

@@ -1,4 +1,14 @@
-all: main
+LIBS  = -framework OpenGL -lOpenVG -lp5graphics -lglfw
+CFLAGS = -Wall -I. -I../include -L.
 CC = cc
-main: main.c
-	$(CC) main.c -o main -framework OpenGL -lOpenVG -lp5graphics -lglfw -I../src -I../include -L../src -I.
+# Should be equivalent to your list of C files, if you don't build selectively
+SRCS = $(wildcard *.c)
+
+PROGS = $(patsubst %.c,%,$(SRCS))
+
+all: $(PROGS)
+
+%: %.c
+	$(CC) $(CFLAGS) $(LIBS) -o $@ $< $
+clean: 
+	rm -f $(PROGS)

@@ -26,8 +26,6 @@
 
 #ifndef P5SHAPES_H
 
-#include <VG/openvg.h>
-#include <VG/vgu.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -37,26 +35,7 @@
 #define P5_TRIANGLES 4
 #define P5_QUADS 5
 
-int pathSize;
-int kindShape;
-int pathCount;
-
-float s_backup[9];
-
 extern struct Style *curr;
-
-VGPath arc_path = VG_INVALID_HANDLE;
-VGPath ellipse_path = VG_INVALID_HANDLE;
-VGPath line_path = VG_INVALID_HANDLE;
-VGPath point_path = VG_INVALID_HANDLE;
-VGPath quad_path = VG_INVALID_HANDLE;
-VGPath rect_path = VG_INVALID_HANDLE;
-VGPath triangle_path = VG_INVALID_HANDLE;
-VGPath bezier_path = VG_INVALID_HANDLE;
-VGPath curve_path = VG_INVALID_HANDLE;
-
-VGPath shape_path = VG_INVALID_HANDLE;
-VGPath shape_paths[100] = {VG_INVALID_HANDLE};
 
 void p5_arc(float x, float y, float a, float start, float stop, int type);
 

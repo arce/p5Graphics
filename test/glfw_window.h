@@ -1,27 +1,32 @@
 #include <glad/glad.h>
-#include <p5Graphics.h>
-#include <stdio.h>
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
 GLFWwindow *window;
 
-static void key_callback(GLFWwindow *window, int key, int scancode, int action,
-                         int mods) {
-  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-    glfwSetWindowShouldClose(window, GLFW_TRUE);
+void setup();
+
+void draw();
+
+void _resize(int w, int h) {
+	glfwSetWindowSize(window, w, h);
 }
 
-void setup() { printf("Setup\n"); }
+void _setup() {
+	setup();
+}
 
-void draw() {
+void _draw() {
   int width, height;
   glfwGetFramebufferSize(window, &width, &height);
   glViewport(0, 0, width, height);
-  p5_background(0xAAAAAAFF);
-	p5_rect(30, 20, 55, 55);
+  draw();
   glfwSwapBuffers(window);
   glfwPollEvents();
+}
+
+static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos) {
+	p5_motionEvent((int)xpos,(int)ypos);
 }
 
 int main() {
@@ -38,16 +43,16 @@ int main() {
     exit(EXIT_FAILURE);
   }
 
-  glfwSetKeyCallback(window, key_callback);
+  glfwSetCursorPosCallback(window, cursor_position_callback);
 
   glfwMakeContextCurrent(window);
   gladLoadGL();
   glfwSwapInterval(1);
 	glfwSetWindowSize(window, 640, 480);
 
-  printf("Main\n");
-  p5_setupFunc(&setup);
-  p5_drawFunc(&draw);
+  p5_setupFunc(&_setup);
+  p5_drawFunc(&_draw);
+	p5_resizeFunc(&_resize);
 
   p5_init(640, 480);
   p5_loop();

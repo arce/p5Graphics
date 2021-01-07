@@ -16,22 +16,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-float backup[9];
-
 typedef struct Matrix {
   float data[9];
   struct Matrix *next;
 } Matrix;
 
  struct Matrix *mtrx_stack = NULL;
-
- Matrix *mtrx_new() {
-  Matrix *mtrx;
-  mtrx = malloc(sizeof(Matrix));
-  memset(mtrx,0,sizeof(Matrix));
-  mtrx->next = NULL;
-  return mtrx;
-}
 
 // Transform:
 // applyMatrix()

@@ -39,18 +39,6 @@
 #define P5_CENTER 2
 #define P5_BASELINE 3
 
- int fontId = 0;
- char ttf_buffer[1 << 24];
- int alignX = P5_LEFT;
- int alignY = P5_BASELINE;
- int textLeading;
- int fontCount = 1;
- VGFont fonts[100];
- int fHeight[100];
- int fSize[100];
-
- char mainPath[256];
-
  int p5_createFont(char *filename, int textHeight);
 
  int p5_loadFont(char *filename, int textHeight);

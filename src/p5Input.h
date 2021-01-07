@@ -1,6 +1,6 @@
 /*
  --
- -- p5Color.h
+ -- p5Input.h
  --
  -- Döiköl Interactive Graphics Environment
  --
@@ -10,6 +10,8 @@
  -- it under the terms of the MIT license. See LICENSE for details.
  --
  */
+
+#include <stdbool.h>
 
 #define P5_BACKSPACE 100
 #define P5_TAB 101
@@ -51,112 +53,30 @@
 // keyReleased()
 // keyTyped()
 
-static int P5_MouseButton(lua_State *L) {
-  lua_pushnumber(L,mouseButton);
-  return 1;
-}
+int p5_mouseX();
 
-static int P5_IsMousePressed(lua_State *L) {
-  lua_pushboolean(L,isEvent[MOUSE_PRESSED]);
-  return 1;
-}
+int p5_mouseY();
 
-static void mouseFunc(int button, int state,int xpos, int ypos) {
-  pmouseX = mouseX;
-  pmouseY = mouseY;
-  mouseX = xpos;
-  mouseY = ypos;
-  if (button==LEFT_BUTTON) {
-    mouseButton = P5_LEFT;
-  } else if (button==RIGHT_BUTTON) {
-    mouseButton = P5_RIGHT;
-  } else {
-    mouseButton = P5_MIDDLE;
-  }
-  if (state=DOWN) {
-    eventType = MOUSE_PRESSED;
-    isEvent[MOUSE_PRESSED] = true;
-  } else {
-    eventType = MOUSE_RELEASED;
-    isEvent[MOUSE_RELEASED] = true;
-  }
-}
+int p5_pmouseX();
 
-static void motionFunc(int xpos, int ypos) {
-  pmouseX = mouseX;
-  pmouseY = mouseY;
-  mouseX = xpos;
-  mouseY = ypos;
-  eventType = MOUSE_DRAGGED;
-  isEvent[MOUSE_DRAGGED] = true;
-}
+int p5_pmouseY();
 
-static void passiveMotionFunc(int xpos, int ypos) {
-  pmouseX = mouseX;
-  pmouseY = mouseY;
-  mouseX = xpos;
-  mouseY = ypos;
-  eventType = MOUSE_MOVED;
-  isEvent[MOUSE_DRAGGED] = true;
-}
+int p5_mouseButton();
 
-static void Dkl_ProcessEvent(int eventType) {
-  lua_getglobal(L,eventArray[eventType]);
-  if (eventType == WINDOW_RESIZED) {
-    lua_pushnumber(L, width);
-    lua_pushnumber(L, height);
-  } else if (eventType == KEY_PRESSED || eventType == KEY_RELEASED) {
-    lua_pushstring(L, keyPress);
-    lua_pushnumber(L, keyCode);
-  } else {
-    lua_pushnumber(L, mouseX);
-    lua_pushnumber(L, mouseY);
-  }
-  if (lua_pcall(L, 2, 0, 0)!=0)
-    eventFunc[eventType] = false;
-  if (eventType == MOUSE_RELEASED && eventFunc[MOUSE_CLICKED]) {
-    lua_getglobal(L,eventArray[MOUSE_CLICKED]);
-    lua_pushnumber(L, mouseX);
-    lua_pushnumber(L, mouseY);
-    if (lua_pcall(L, 2, 0, 0)!=0)
-      eventFunc[MOUSE_CLICKED] = false;
-  }
-}
+bool p5_isMousePressed();
 
-// Keyboard:
-// key
-// keyCode
-// keyPressed()
-// keyPressed
-// keyReleased()
-// keyTyped()
+void p5_mouseEvent(int button, int state,int xpos, int ypos);
 
-static int Dkl_KeyPressed(char key, int code) {
-  keyPress[0] = key;
-  keyCode = code;
-  eventType = KEY_PRESSED;
-  isEvent[KEY_PRESSED] = true;
-  return 0;
-}
+void p5_motionEvent(int xpos, int ypos);
 
-static int Dkl_KeyReleased(char key, int code) {
-  keyCode = code;
-  eventType = KEY_RELEASED;
-  isEvent[KEY_RELEASED] = true;
-  return 0;
-}
+void p5_passiveMotionEvent(int xpos, int ypos);
 
-static int P5_IsKeyPressed(lua_State *L) {
-  lua_pushboolean(L,isEvent[KEY_PRESSED]);
-  return 1;
-}
+void p5_keyPressedEvent(char key, int code);
 
-static int P5_Key(lua_State *L) {
-  lua_pushstring(L,keyPress);
-  return 1;
-}
+void p5_keyReleasedEvent(char key, int code);
 
-static int P5_KeyCode(lua_State *L) {
-  lua_pushnumber(L,keyCode);
-  return 1;
-}
+int p5_IsKeyPressed();
+
+int p5_Key();
+
+int p5_KeyCode();

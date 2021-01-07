@@ -28,9 +28,12 @@ p5Typography.o: p5Typography.c
 	
 p5Shapes.o: p5Shapes.c
 	$(CC) $(CFLAGS) -c p5Shapes.c -I../include
+	
+p5Input.o: p5Input.c
+	$(CC) $(CFLAGS) -c p5Input.c -I../include
 
-libp5graphics.dylib: p5Color.o p5Transform.o p5Image.o p5Math.o p5Structure.o shFont.o p5Typography.o p5Shapes.o
-	$(LD) -dynamiclib -install_name libp5graphics.dylib -o libp5graphics.dylib -lOpenVG p5Color.o p5Transform.o p5Math.o p5Image.o p5Structure.o shFont.o p5Typography.o p5Shapes.o -L.
+libp5graphics.dylib: p5Color.o p5Transform.o p5Image.o p5Math.o p5Structure.o shFont.o p5Typography.o p5Shapes.o p5Input.o
+	$(LD) -dynamiclib -install_name libp5graphics.dylib -o libp5graphics.dylib -lOpenVG p5Color.o p5Transform.o p5Math.o p5Image.o p5Structure.o shFont.o p5Typography.o p5Shapes.o p5Input.o -L.
 	
 clean:
 	rm -f *.o

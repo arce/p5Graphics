@@ -3,6 +3,16 @@
 #include <VG/openvg.h>
 #include "p5Transform.h"
 
+float backup[9];
+
+ Matrix *mtrx_new() {
+  Matrix *mtrx;
+  mtrx = malloc(sizeof(Matrix));
+  memset(mtrx,0,sizeof(Matrix));
+  mtrx->next = NULL;
+  return mtrx;
+}
+
  void p5_popMatrix() {
   Matrix* temp = mtrx_stack;
   mtrx_stack = mtrx_stack->next;
