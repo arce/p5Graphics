@@ -1,5 +1,4 @@
-#include "glfw_window.h"
-#include <p5Graphics.h>
+#include "p5lib.h"
 
 // Learning Processing
 // Daniel Shiffman
@@ -8,10 +7,10 @@
 // Example 17-6: Text breaking up 
 
 //PFont f;
-char[] message = "click mouse to shake it up";
+String message = "click mouse to shake it up";
 
 // An array of Letter objects
-char[] letters;
+Letter[] letters;
 
 void setup() {
   size(480, 270);
@@ -47,4 +46,10 @@ void draw() {
       letters[i].home();
     }
   }
+}
+
+int main(int argc, char** argv) {
+  p5_setupFunc(setup);
+  p5_drawFunc(draw);
+  p5_init(argc,argv);
 }

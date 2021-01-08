@@ -152,14 +152,14 @@ void p5_keyReleasedEvent(char key, int code) {
   isEvent[KEY_RELEASED] = true;
 }
 
-int p5_IsKeyPressed() {
+int p5_isKeyPressed() {
 	return isEvent[KEY_PRESSED];
 }
 
-int p5_Key() {
+int p5_key() {
   return keyPress;
 }
 
-int P5_KeyCode() {
+int P5_keyCode() {
  return keyCode;
 }

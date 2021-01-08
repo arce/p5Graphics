@@ -33,6 +33,6 @@ void draw() {
   
   // Use values to draw an ellipse
   p5_noStroke();
-  p5_fill(r,g,b,a);
+  p5_fill(p5_color(r,g,b,a));
   p5_ellipse(x,y,diam,diam);
 }

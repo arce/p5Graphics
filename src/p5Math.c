@@ -57,3 +57,7 @@
   radians = _rad(degrees);
   return radians;
 }
+
+int p5_random(int x) {
+	return rand() % x;
+}

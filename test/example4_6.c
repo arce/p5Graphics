@@ -25,6 +25,6 @@ void setup() {
 void draw() {
   // Use those variables to draw an ellipse
   p5_stroke(0);
-  p5_fill(r,g,b,a);  // (Remember, the fourth argument for a color is transparency.
+  p5_fill(p5_color(r,g,b,a));  // (Remember, the fourth argument for a color is transparency.
   p5_ellipse(x,y,diam,diam);  
 }

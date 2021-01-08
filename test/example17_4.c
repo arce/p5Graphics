@@ -1,5 +1,5 @@
-#include "glfw_window.h"
 #include <p5Graphics.h>
+#include "glfw_window.h"
 
 // Learning Processing
 // Daniel Shiffman
@@ -16,7 +16,7 @@ char *headlines[] = {
 
 //PFont f; // Global font variable
 float x; // Horizontal location
-int index = 0;
+int ndx = 0;
 
 void setup() {
   p5_size(480, 270);
@@ -25,7 +25,7 @@ void setup() {
   //f = createFont( "Arial", 16);
 
   // Initialize headline offscreen
-  x = p5_width;
+  x = p5_width();
 }
 
 void draw() {
@@ -34,20 +34,20 @@ void draw() {
 
 	// Display headline at x location
 	p5_textSize(16); //p5_textFont(f, 16);
-	p5_textAlign(P5_LEFT);
+	p5_textAlign(P5_LEFT,P5_CENTER);
 
 	// A specific String from the array is displayed according to the value of the "index" variable.
-	p5_text(headlines[index], x, p5_height-20); 
+	p5_text(headlines[ndx], x, p5_height()-20); 
 
 	// Decrement x
 	x = x - 3;
 
 	// If x is less than the negative width, then it is off the screen
 	// textWidth() is used to calculate the width of the current String.
-	float w = p5_textWidth(headlines[index]); 
+	float w = p5_textWidth(headlines[ndx]); 
 	if (x < -w) {
-	  x = p5_width;
+	  x = p5_width();
 	  // index is incremented when the current String has left the screen in order to display a new String.
-	  index = (index + 1) % 2 ; //strlen(headlines);
+	  ndx = (ndx + 1) % 2 ; //strlen(headlines);
 	}
 }

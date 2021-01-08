@@ -59,7 +59,7 @@ void draw() {
 	eyeR = p5_random(255);
 	eyeG = p5_random(255);
 	eyeB = p5_random(255);
-	p5_fill(eyeR, eyeG, eyeB);
+	p5_fill(p5_color(eyeR, eyeG, eyeB,255));
 
 	p5_ellipse(zoogX-19, zoogY-30, 16, 32); 
 	p5_ellipse(zoogX+19, zoogY-30, 16, 32); 

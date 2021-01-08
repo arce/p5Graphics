@@ -1,5 +1,5 @@
-#include "glfw_window.h"
 #include <p5Graphics.h>
+#include "glfw_window.h"
 
 // Learning Processing
 // Daniel Shiffman
@@ -44,7 +44,7 @@ void draw() {
     p5_rotate(theta);
 
     // Display the box
-    p5_fillA(0, 100);
+    p5_fill(0);
     p5_rectMode(P5_CENTER);
     p5_rect(0, 0, w, h);
     p5_popMatrix();

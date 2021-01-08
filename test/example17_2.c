@@ -7,33 +7,26 @@
 
 // Example 17-2: Text align
 
-float r = 8;
-int width = 480;
-int height = 270;
+int f;
 
 void setup() {
-  p5_size(width, height);
-  PFont fnt = p5_loadFont("fonts/lucida.txf");
-  PImage img = p5_loadImage("icons/laptop130.png");
-  PShape shp = p5_createShape(P5_RECT, 0, 0, 80, 80);
-  p5_textFont(fnt);
+  p5_size(480, 270);
+  f = p5_loadFont("data/Vera.ttf", 16);
 }
 
 void draw() {
-  p5_background(255.0f);
-  p5_stroke(175.0f);
+  p5_background(255);
+  p5_stroke(175);
+  p5_line(p5_width() / 2, 0, p5_width() / 2, p5_height());
+  p5_textFont(f);
+  p5_fill(0);
 
-  p5_line(width / 2, 0, width / 2, height);
-  p5_textSize(16);
-  p5_fill(0.0f);
-
-  p5_textAlign(P5_CENTER, 0);
-  p5_text("This text is centerep5_", width / 2, 160);
-  p5_textAlign(P5_LEFT, 0);
-  p5_text("This text is left alignep5_", width / 2, 200);
-  p5_textAlign(P5_RIGHT, 0);
-  p5_text("This text is right alignep5_", width / 2, 240);
-
-  p5_shape(shp, 10, 20);
-  p5_image(img, 30, 40);
+  // textAlign() sets the alignment for displaying text. It takes one argument:
+  // CENTER, LEFT, or RIGHT.
+  p5_textAlign(P5_CENTER,P5_CENTER);
+  p5_text("This text is centered.", p5_width() / 2, 160);
+  p5_textAlign(P5_LEFT,P5_CENTER);
+  p5_text("This text is left aligned.", p5_width() / 2, 200);
+  p5_textAlign(P5_RIGHT,P5_CENTER);
+  p5_text("This text is right aligned.", p5_width() / 2, 240);
 }

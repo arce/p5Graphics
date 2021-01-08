@@ -1,6 +1,7 @@
-#include "glfw_window.h"
 #include <p5Graphics.h>
+#include "glfw_window.h"
 #include <string.h>
+#include <math.h>
 
 // Learning Processing
 // Daniel Shiffman
@@ -21,7 +22,7 @@ void setup() {
   p5_textSize(40);
   // p5_textFont(f);
   // The text must be centered!
-  p5_textAlign(P5_CENTER);
+  p5_textAlign(P5_CENTER,P5_CENTER);
 }
 
 void draw() {

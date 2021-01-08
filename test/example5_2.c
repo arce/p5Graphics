@@ -1,5 +1,6 @@
-#include "glfw_window.h"
 #include <p5Graphics.h>
+#include "glfw_window.h"
+
 
 // Learning Processing
 // Daniel Shiffman
@@ -16,7 +17,7 @@ void setup() { p5_size(480, 270); }
 
 void draw() {
   // Color the background and draw lines to divide the window in quadrants.
-  p5_background(r, g, b);
+  p5_background(p5_color(r, g, b,255));
   p5_stroke(255);
   p5_line(p5_width() / 2, 0, p5_width() / 2, p5_height());
   p5_line(0, p5_height() / 2, p5_width(), p5_height() / 2);
@@ -38,7 +39,7 @@ void draw() {
   }
 
   // If the mouse is pressed (using the system variable mousePressed)
-  if (p5_mousePressed()) {
+  if (p5_isMousePressed()) {
     g = g + 1;
   } else {
     g = g - 1;

@@ -1,5 +1,5 @@
-#include "glfw_window.h"
 #include <p5Graphics.h>
+#include "glfw_window.h"
 
 // Learning Processing
 // Daniel Shiffman
@@ -22,11 +22,11 @@ void draw() {
   p5_noStroke();
 
   // Draw rectangle on left
-  p5_fill(c1, 0, c2);
+  p5_fill(p5_color(c1, 0, c2,255));
   p5_rect(0, 0, 320, 360);
 
   // Draw rectangle of right
-  p5_fill(c2, 0, c1);
+  p5_fill(p5_color(c2, 0, c1,255));
   p5_rect(320, 0, 320, 360);
 
   // Adjust color values

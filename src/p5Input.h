@@ -75,8 +75,8 @@ void p5_keyPressedEvent(char key, int code);
 
 void p5_keyReleasedEvent(char key, int code);
 
-int p5_IsKeyPressed();
+int p5_isKeyPressed();
 
-int p5_Key();
+int p5_key();
 
-int p5_KeyCode();
+int p5_keyCode();

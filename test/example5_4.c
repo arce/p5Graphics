@@ -20,7 +20,7 @@ void setup() {
 
 void draw() {
 	// The button is pressed if (mouseX,mouseY) is inside the rectangle and mousePressed is true.
-	if (p5_mouseX() > x && p5_mouseX() < x+w && p5_mouseY() > y && p5_mouseY() < y+h && p5_mousePressed()) {
+	if (p5_mouseX() > x && p5_mouseX() < x+w && p5_mouseY() > y && p5_mouseY() < y+h && p5_isMousePressed()) {
 	  button = true; 
 	} else {
 	  button = false;

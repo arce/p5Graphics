@@ -54,5 +54,7 @@
  float p5_degrees(float radians);
 
  float p5_radians(float degrees);
+ 
+ int p5_random(int x);
 
 #endif

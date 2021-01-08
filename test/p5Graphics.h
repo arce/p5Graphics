@@ -110,6 +110,7 @@ int p5_red(int32_t rgba);
 #define P5_LINES 3
 #define P5_TRIANGLES 4
 #define P5_QUADS 5
+#define P5_RECT 6
 
 void p5_arc(float x, float y, float a, float start, float stop, int type);
 
@@ -195,21 +196,6 @@ int p5_key();
 
 int p5_keyCode();
 
-// Transform:
-// applyMatrix()
-// popMatrix()
-// printMatrix()
-// pushMatrix()
-// resetMatrix()
-// rotate()
-// rotateX()
-// rotateY()
-// rotateZ()
-// scale()
-// shearX()
-// shearY()
-// translate()
-
 void p5_popMatrix();
 
 void p5_printMatrix();
@@ -245,10 +231,46 @@ float p5_map(float value, float start1, float stop1, float start2, float stop2);
 
 float p5_norm(float value, float start1, float stop1);
 
-// Trigonometry functions:
-// degrees()
-// radians()
-
 float p5_degrees(float radians);
 
 float p5_radians(float degrees);
+
+int p5_random(int x);
+
+int p5_createImage(int width, int height);
+
+int p5_imageWidth(int imageId);
+
+int p5_imageHeight(int imageId);
+
+void p5_image(int imageId, int x, int y, int w, int h);
+
+void p5_imageMode(int imageMode);
+
+int p5_importImage(uint8_t *buffer, int len);
+
+int p5_loadImage(char *filename);
+
+void p5_loadPixels(int imageId);
+
+void p5_updatePixels(int imageId, uint8_t **parray);
+
+void p5_clip(int x, int y, int w, int h);
+
+void p5_noClip();
+
+ int p5_createFont(char *filename, int textHeight);
+
+ int p5_loadFont(char *filename, int textHeight);
+
+ void p5_text(char *str, int x, int y);
+
+ void p5_textFont(int id);
+
+ void p5_textAlign(int xalig, int yalig);
+
+ void p5_textLeading(int textLead);
+
+ void p5_textSize(int id);
+
+ int p5_textWidth(char *str);

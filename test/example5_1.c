@@ -18,13 +18,13 @@ void setup() {
 
 void draw() {
   // Draw stuff
-  p5_background(r,g,b);  
+  p5_background(p5_color(r,g,b,255));  
   p5_stroke(255);
   p5_line(p5_width()/2,0,p5_width()/2,p5_height());
 
   // If the mouse is on the right side of the screen is equivalent to 
   // "if mouseX is greater than width divided by 2."
-  if(p5_mouseX > p5_width()/2) {
+  if (p5_mouseX() > p5_width()/2) {
     r = r + 1; 
   } else {
     r = r - 1;
@@ -37,11 +37,4 @@ void draw() {
   } else if (r < 0) {
     r = 0; 
   }
-}
-
-int main(int argc, char** argv) {
-  p5_drawFunc(draw);
-  setup();
-  
-  p5_listen();
 }
