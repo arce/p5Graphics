@@ -5,28 +5,27 @@
 // Daniel Shiffman
 // http://www.learningprocessing.com
 
-// Example 17-2: Text align
+// Example 17-2: Text align 
 
-int f;
+PFont f;
 
 void setup() {
-  p5_size(480, 270);
-  f = p5_loadFont("data/Vera.ttf", 16);
+  size(480, 270);
+  f = createFont("Arial", 16);
 }
 
 void draw() {
-  p5_background(255);
-  p5_stroke(175);
-  p5_line(p5_width() / 2, 0, p5_width() / 2, p5_height());
-  p5_textFont(f);
-  p5_fill(0);
+  background(255);
+  stroke(175);
+  line(width/2, 0, width/2, height);
+  textFont(f);
+  fill(0);
 
-  // textAlign() sets the alignment for displaying text. It takes one argument:
-  // CENTER, LEFT, or RIGHT.
-  p5_textAlign(P5_CENTER,P5_CENTER);
-  p5_text("This text is centered.", p5_width() / 2, 160);
-  p5_textAlign(P5_LEFT,P5_CENTER);
-  p5_text("This text is left aligned.", p5_width() / 2, 200);
-  p5_textAlign(P5_RIGHT,P5_CENTER);
-  p5_text("This text is right aligned.", p5_width() / 2, 240);
+  // textAlign() sets the alignment for displaying text. It takes one argument: CENTER, LEFT, or RIGHT.
+  textAlign(CENTER);
+  text("This text is centered.", width/2, 160);
+  textAlign (LEFT) ;
+  text("This text is left aligned.", width/2, 200);
+  textAlign(RIGHT);
+  text("This text is right aligned.", width/2, 240);
 }

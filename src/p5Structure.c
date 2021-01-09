@@ -25,6 +25,7 @@ void p5_mainLoop() {
                            0.0f, 0.0f, _height, 1.0f};
 
   while (loop) {
+		p5_processEvents();
     vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
     vgLoadMatrix(reset);
     vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
@@ -109,8 +110,6 @@ double p5_time() {
 void p5_setupFunc(void (*func)()) { setup_func = func; }
 
 void p5_drawFunc(void (*func)()) { draw_func = func; }
-
-void p5_resizeFunc(void (*func)(int x, int y)) { resize_func = func; }
 
 int p5_init(int w, int h) {
   vgCreateContextSH(w, h);

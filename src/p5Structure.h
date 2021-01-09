@@ -47,8 +47,6 @@ void p5_setupFunc(void (*func)());
 
 void p5_drawFunc(void (*func)());
 
-void p5_resizeFunc(void (*func)(int w, int h));
-
 int p5_init(int w, int h);
 
 int p5_frameCount();

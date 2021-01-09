@@ -52,7 +52,7 @@ int main() {
 
   p5_setupFunc(&_setup);
   p5_drawFunc(&_draw);
-	p5_resizeFunc(&_resize);
+	//p5_resizeFunc(&_resize);
 
   p5_init(640, 480);
   p5_loop();

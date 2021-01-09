@@ -7,7 +7,7 @@
 
 // Example 1-3: RGB Color
 
-void setup() {}
+void setup() { p5_size(480, 270); }
 
 void draw() {
 

@@ -9,10 +9,10 @@
 
 void setup() {
   p5_size(480,270);
+  p5_background(255);
 }
 
 void draw() {
-	p5_background(255);
 	// Legs
 	p5_stroke(0);
 	int y = 80;       // Vertical location of each line

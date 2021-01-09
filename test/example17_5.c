@@ -7,29 +7,29 @@
 
 // Example 17-5: Rotating text 
 
-//PFont f;
-char message[] = "this text is spinning";
+PFont f;
+String message = "this text is spinning";
 float theta;
 
 void setup() {
-  p5_size(480, 270);
-  p5_textSize(20); //f = createFont("Arial", 20);
-  p5_frameRate(10);  
+  size(480, 270);
+  f = createFont("Arial", 20);
 }
 
 void draw() {
-  p5_background(255);
-  p5_fill(0);
-  //p5_textFont(f);                  // Set the font
-  p5_textAlign(P5_CENTER,P5_CENTER);
-  p5_pushMatrix();
-  p5_translate(p5_width()/2, p5_height()/2); // Translate to the center
-  p5_rotate(theta);                // Rotate by theta
+
+  background(255);
+  fill(0);
+  textFont(f);                  // Set the font
+  textAlign(CENTER);
+  pushMatrix();
+  translate(width/2, height/2); // Translate to the center
+  rotate(theta);                // Rotate by theta
 
   // The text is center aligned and displayed at (0,0) after translating and rotating. 
   // See Chapter 14 or a review of translation and rotation.
-  p5_text(message, 0, 0);
-  p5_popMatrix();
+  text(message, 0, 0); 
+  popMatrix();
 
   // Increase rotation
   theta += 0.02;

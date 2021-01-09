@@ -53,6 +53,22 @@
 // keyReleased()
 // keyTyped()
 
+void p5_mouseMovedFunc(void (*func)(int x, int y));
+
+void p5_mouseDraggedFunc(void (*func)(int x, int y));
+
+void p5_mousePressedFunc(void (*func)(int key, int keyCode));
+
+void p5_mouseReleasedFunc(void (*func)(int x, int y));
+	
+void p5_mouseClickedFunc(void (*func)());
+
+void p5_keyPressedFunc(void (*func)(int key, int keyCode));
+
+void p5_keyReleasedFunc(void (*func)(int key, int keyCode));
+
+void p5_windowResizedFunc(void (*func)(int w, int h));
+
 int p5_mouseX();
 
 int p5_mouseY();
