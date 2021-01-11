@@ -20,12 +20,12 @@ void draw() {
   // Draw a line
   p5_stroke(0);
   // Only one line is drawn each time through draw().
-  p5_line(0,y,width,y); 
+  p5_line(0,y,p5_width(),y); 
   // Increment y
   y += 10;
   
   // Reset y back to 0 when it gets to the bottom of window
-  if (y > height) {
+  if (y > p5_height()) {
     y = 0;
   }
 }

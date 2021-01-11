@@ -34,11 +34,6 @@
 
 #include "shFont.h"
 
-#define P5_LEFT 0
-#define P5_RIGHT 1
-#define P5_CENTER 2
-#define P5_BASELINE 3
-
  int p5_createFont(char *filename, int textHeight);
 
  int p5_loadFont(char *filename, int textHeight);

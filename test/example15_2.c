@@ -30,12 +30,12 @@ void draw() {
   
   // Images can be animated just like regular shapes using variables, translate(), rotate(), and so on.
   p5_imageMode(P5_CENTER);
-  p5_image(head,0,0); 
+  p5_image(head,0,0,p5_imageWidth(head),p5_imageHeight(head)); 
   
   // Adjust variables for animation
   x += 1.0;
   rot += 0.02;
-  if (x > p5_width()+head.width) {
-    x = -head.width;
+  if (x > p5_width()+p5_imageWidth(head)) {
+    x = -p5_imageWidth(head);
   }
 }

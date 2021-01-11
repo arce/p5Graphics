@@ -15,18 +15,18 @@ float w = 40;
 float h = 40;
 
 void setup() {
-  size(480, 270);
+  p5_size(480, 270);
 }
 
 void draw() {
-  background(255);
+  p5_background(255);
 
   // Start in the center and draw the circle
-  translate(width/2, height/2);
-  noFill();
-  stroke(0);
+  p5_translate(p5_width()/2, p5_width()/2);
+  p5_noFill();
+  p5_stroke(0);
   // Our curve is a circle with radius r in the center of the window.
-  ellipse(0, 0, r*2, r*2); 
+  p5_ellipse(0, 0, r*2, r*2); 
   // 10 boxes along the curve
   int totalBoxes = 10;
   // We must keep track of our position along the curve
@@ -39,17 +39,17 @@ void draw() {
     // Angle in radians is the arclength divided by the radius
     float theta = arclength / r;
 
-    pushMatrix();
+    p5_pushMatrix();
     // Polar to cartesian coordinate conversion
-    translate(r*cos(theta), r*sin(theta));
+    p5_translate(r*cos(theta), r*sin(theta));
     // Rotate the box
-    rotate(theta);
+    p5_rotate(theta);
 
     // Display the box
-    fill(0, 100);
-    rectMode(CENTER);
-    rect(0, 0, w, h);
-    popMatrix();
+    p5_fill(0);
+    p5_rectMode(P5_CENTER);
+    p5_rect(0, 0, w, h);
+    p5_popMatrix();
 
     // Move halfway again
     arclength += w/2;

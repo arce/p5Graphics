@@ -16,13 +16,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct Matrix {
-  float data[9];
-  struct Matrix *next;
-} Matrix;
-
- struct Matrix *mtrx_stack = NULL;
-
 // Transform:
 // applyMatrix()
 // popMatrix()

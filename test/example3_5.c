@@ -8,9 +8,15 @@
 // Example 3-5: mousePressed and keyPressed
 
 
+void mousePressed(int x, int y);
+
+void keyPressed(char key, int keyCode);
+
 void setup() {
   p5_size(480, 270);
   p5_background(255);
+	p5_mousePressedFunc(&mousePressed);
+	p5_keyPressedFunc(&keyPressed);
 }
 
 void draw() {
@@ -18,7 +24,7 @@ void draw() {
 }
 
 // Whenever a user clicks the mouse the code written inside mousePressed() is executepg.
-void mousePressed() {
+void mousePressed(int x, int y) {
   p5_stroke(0);
   p5_fill(175);
   p5_rectMode(P5_CENTER);
@@ -26,6 +32,6 @@ void mousePressed() {
 }
 
 // Whenever a user presses a key the code written inside keyPressed() is executepg.
-void keyPressed() {
+void keyPressed(char key, int keyCode) {
   p5_background(255);
 }

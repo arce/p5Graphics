@@ -12,17 +12,19 @@
 PFont f;  
 
 void setup() {
-  size(480, 270);
+  p5_size(480, 270);
 
   // Step 3: Create Font
-  f = createFont("Arial", 16);
+  f = p5_createFont("Georgia.ttf", 16);
+	printf("%d\n",f);
 } 
 
 void draw() {
-  background(255);
-  textFont(f, 16); // Step 4: Specify font to be used
-  fill(0);         // Step 5: Specify font color
+  p5_background(255);
+  p5_textFont(f); // Step 4: Specify font to be used
+  p5_fill(0);         // Step 5: Specify font color
 
   // Step 6: Display Text
-  text("Mmmmm ... Strings ...", 10, height/2);
+ // p5_text("Mmmmm ... Strings ...", 10, p5_height()/2);
+	p5_text("Mmmmm ... Strings ...", 0, 0);
 }

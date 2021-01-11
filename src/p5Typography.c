@@ -1,4 +1,5 @@
 #include "p5Typography.h"
+#include "p5Style.h"
 #include <stdbool.h>
 
 #define STB_TRUETYPE_IMPLEMENTATION
@@ -6,20 +7,18 @@
 
 float m_backup[9];
 
-int fontId = 0;
-char ttf_buffer[1 << 24];
-int alignX = P5_LEFT;
-int alignY = P5_BASELINE;
+unsigned char ttf_buffer[1 << 24];
 int textLeading;
-int fontCount = 1;
+int fontCount = 0;
 VGFont fonts[100];
 int fHeight[100];
 int fSize[100];
 
 char mainPath[256];
 
-VGFont _createFontFromFile(const char *filename, unsigned short size) {
+extern struct Style *curr;
 
+VGFont _createFontFromFile(const char *filename, unsigned short size) {
   stbtt_fontinfo font;
   stbtt_vertex *vertices;
   float xpos = 2;
@@ -28,9 +27,10 @@ VGFont _createFontFromFile(const char *filename, unsigned short size) {
   int glyphIndex;
   int num_verts;
 
-  char filepath[256];
-  strcpy(filepath, mainPath);
-  fread(ttf_buffer, 1, 1 << 24, fopen(strcat(filepath, filename), "rb"));
+  //char filepath[256];
+  //strcpy(filepath, mainPath);
+  //fread(ttf_buffer, 1, 1 << 24, fopen(strcat(filepath, filename), "rb"));
+	fread(ttf_buffer, 1, 1 << 24, fopen(filename,"rb"));
 
   VGPath path;
   VGubyte seg;
@@ -40,6 +40,7 @@ VGFont _createFontFromFile(const char *filename, unsigned short size) {
   float scale = 10.0 / (y1 - y0);
 
   VGFont fnt = vgCreateFont(font.numGlyphs);
+	printf("%d\n",font.numGlyphs);
   for (glyphIndex = 0; glyphIndex < font.numGlyphs; glyphIndex++) {
     stbtt_GetCodepointHMetrics(&font, (unsigned char)glyphIndex, &advance,
                                &lsb);
@@ -149,10 +150,10 @@ VGFont _loadFontFromFile(const char *filename, unsigned short size) {
   VG_GLYPH_ORIGIN[1] = 0;
   int i;
   for (i = 0; i < strlen(str); i++)
-    vgDrawGlyph(fonts[fontId], str[i], 0, false);
+    vgDrawGlyph(fonts[curr->fontId], str[i], 0, false);
 
   int tWidth = VG_GLYPH_ORIGIN[0];
-  switch (alignX) {
+  switch (curr->alignX) {
   case P5_LEFT:
     break;
   case P5_RIGHT:
@@ -164,11 +165,11 @@ VGFont _loadFontFromFile(const char *filename, unsigned short size) {
   }
   VG_GLYPH_ORIGIN[0] = 0;
   VG_GLYPH_ORIGIN[1] = 0;
-  VGfloat matrix[] = {fSize[fontId] * 0.1f,
+  VGfloat matrix[] = {fSize[curr->fontId] * 0.1f,
                       0.0f,
                       0.0f,
                       0.0f,
-                      -fSize[fontId] * 0.1f,
+                      -fSize[curr->fontId] * 0.1f,
                       0.0f,
                       x,
                       y,
@@ -178,27 +179,27 @@ VGFont _loadFontFromFile(const char *filename, unsigned short size) {
   vgMultMatrix(matrix);
 
   for (i = 0; i < strlen(str); i++)
-    vgDrawGlyph(fonts[fontId], str[i], VG_FILL_PATH, false);
+    vgDrawGlyph(fonts[curr->fontId], str[i], VG_FILL_PATH, false);
 
   vgLoadMatrix(m_backup);
 }
 
- void p5_textFont(int id) { fontId = id; }
+ void p5_textFont(int id) { curr->fontId = id; }
 
  void p5_textAlign(int xalign, int yalign) {
-  alignX = xalign;
-  alignY = yalign;
+  curr->alignX = xalign;
+  curr->alignY = yalign;
 }
 
  void p5_textLeading(int textLead) { textLeading = textLead; }
 
- void p5_textSize(int id) { fHeight[fontId] = fSize[fontId] = id; }
+ void p5_textSize(int id) { fHeight[curr->fontId] = fSize[curr->fontId] = id; }
 
  int p5_textWidth(char *str) {
   VG_GLYPH_ORIGIN[0] = 0;
   VG_GLYPH_ORIGIN[1] = 0;
   int i;
   for (i = 0; i < strlen(str); i++)
-    vgDrawGlyph(fonts[fontId], str[i], 0, false);
+    vgDrawGlyph(fonts[curr->fontId], str[i], 0, false);
   return VG_GLYPH_ORIGIN[0];
 }

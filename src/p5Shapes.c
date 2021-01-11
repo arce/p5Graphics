@@ -106,7 +106,7 @@ void p5_arc(float x, float y, float a, float _start, float _stop, int type) {
   }
 
   vgDrawPath(arc_path, curr->fillEnable | curr->strokeEnable);
-	vgFinish();
+	//vgFinish();
 }
 
 void _ellipse(VGfloat cx, VGfloat cy, VGfloat w, VGfloat h) {
@@ -136,7 +136,7 @@ void _ellipse(VGfloat cx, VGfloat cy, VGfloat w, VGfloat h) {
 
   vgModifyPathCoords(ellipse_path, 0, 3, coords);
   vgDrawPath(ellipse_path, curr->fillEnable | curr->strokeEnable);
-	vgFinish();
+	//vgFinish();
 }
 
 void p5_circle(float x, float y, float a) { _ellipse(x, y, a, a); }
@@ -149,7 +149,7 @@ void p5_line(float x, float y, float a, float b) {
   vgModifyPathCoords(line_path, 0, 2, coords);
   if (curr->strokeEnable!=0) {
     vgDrawPath(line_path, VG_STROKE_PATH);
-	  vgFinish();
+	  //vgFinish();
   }
 }
 
@@ -159,7 +159,7 @@ void p5_point(float x, float y) {
   vgTranslate(x, y);
   if (curr->fillEnable!=0) {
     vgDrawPath(point_path, VG_FILL_PATH);
-		vgFinish();
+		//vgFinish();
 	}
   vgLoadMatrix(s_backup);
 }
@@ -170,7 +170,7 @@ void p5_quad(float x, float y, float a, float b, float c, float d, float e,
 
   vgModifyPathCoords(quad_path, 0, 4, coords);
   vgDrawPath(quad_path, curr->fillEnable | curr->strokeEnable);
-	vgFinish();
+	//vgFinish();
 }
 
 void _rect(float a, float b, float c, float d) {
@@ -199,7 +199,7 @@ void _rect(float a, float b, float c, float d) {
 
   vgModifyPathCoords(rect_path, 0, 4, coords);
   vgDrawPath(rect_path, curr->fillEnable | curr->strokeEnable);
-	vgFinish();
+	//vgFinish();
 }
 
 void p5_rect(float a, float b, float c, float d) { _rect(a, b, c, d); }
@@ -220,7 +220,7 @@ void p5_bezier(float x, float y, float a, float b, float c, float d, float e,
 
   vgModifyPathCoords(bezier_path, 0, 2, coords);
   vgDrawPath(bezier_path, curr->fillEnable | curr->strokeEnable);
-	vgFinish();
+	//vgFinish();
 }
 
 void p5_curve(float x, float y, float a, float b, float c, float d) {
@@ -228,7 +228,7 @@ void p5_curve(float x, float y, float a, float b, float c, float d) {
 
   vgModifyPathCoords(curve_path, 0, 2, coords);
   vgDrawPath(curve_path, curr->fillEnable | curr->strokeEnable);
-	vgFinish();
+	//vgFinish();
 }
 
 void p5_ellipseMode(int mode) { curr->ellipseMode = mode; }
@@ -277,7 +277,7 @@ void p5_endShape(int mode) {
     vgAppendPathData(shape_path, 1, &seg, &data);
   }
   vgDrawPath(shape_path, curr->fillEnable | curr->strokeEnable);
-	vgFinish();
+	//vgFinish();
 }
 
 void p5_quadraticVertex(float x, float y, float w, float h) {

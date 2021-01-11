@@ -12,7 +12,6 @@ float theta = 0;
 
 void setup() {
   p5_size(480, 270);
-  p5_frameRate(10);
 }
 
 void draw() {
@@ -26,9 +25,9 @@ void draw() {
   for (float i = 0; i < P5_TWO_PI; i += 0.2) {
 
     // Push, rotate and draw a line!
-    // The transformation state is saved at the beginning of each cycle through the for loop and restored at the enpg. 
+    // The transformation state is saved at the beginning of each cycle through the for loop and restored at the end. 
     // Try commenting out these lines to see the difference!
-    p5_pushMatrix(); 
+    p5_pushMatrix();
     p5_rotate(theta + i);
     p5_line(0, 0, 100, 0);
 
@@ -46,4 +45,7 @@ void draw() {
     // We're done with the outside loop, pop!
     p5_popMatrix();
   }
+
+  // Increment theta
+  theta += 0.01;
 }

@@ -24,15 +24,15 @@ void draw() {
 
   // If we've reached an edge, reverse speed (i.e. multiply it by -1)
   //(Note if speed is a + number, square moves to the right,- to the left)
-  if ((x > width) || (x < 0)) {
+  if ((x > p5_width()) || (x < 0)) {
     speed = speed * -1;
   }
 
   p5_background(255); // Draw a white background
 
   // Set ellipses and rects to CENTER mode
-  p5_ellipseMode(CENTER);
-  p5_rectMode(CENTER);
+  p5_ellipseMode(P5_CENTER);
+  p5_rectMode(P5_CENTER);
 
   // Arms are incorporated into Zoog's design with a for loop. 
   for (int i = y + 5; i < y + h; i += 10) { 

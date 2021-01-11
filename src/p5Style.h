@@ -22,8 +22,6 @@
 #define P5_RIGHT 11
 #define P5_TOP 12
 #define P5_BOTTOM 13
-#define P5_CHORD 14
-#define P5_PIE 15
 #define P5_SQUARE VG_CAP_BUTT
 #define P5_PROJECT VG_CAP_SQUARE
 #define P5_ROUND VG_JOIN_ROUND
@@ -48,6 +46,9 @@ typedef struct Style {
 	int shapeMode;
 	int imageMode;
 	int textMode;
+	int alignX;
+	int alignY;
+	int fontId;
   struct Style *next;
 } Style;
 

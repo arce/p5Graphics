@@ -18,8 +18,8 @@ void setup() {
 void draw() {
   p5_background(255);
 
-  p5_ellipseMode(CENTER);
-  p5_rectMode(CENTER);
+  p5_ellipseMode(P5_CENTER);
+  p5_rectMode(P5_CENTER);
 
   int y = p5_height()/2;
 

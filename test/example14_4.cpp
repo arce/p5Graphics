@@ -42,7 +42,7 @@ void drawPyramid(int t) {
   p5_vertex3d(-t, -t, -t);
   p5_vertex3d( 0, 0, t);
 
-  p5_endShape();
+  p5_endShape(P5_CLOSE);
 }
 
 void setup() {

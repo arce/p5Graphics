@@ -20,7 +20,7 @@ uint8_t **images[MAX_IMAGES];
 // Image commands:
 // createImage()
 
- int p5_createImage(int width, int height) {
+int p5_createImage(int width, int height) {
   imageCount++;
   unsigned int lilEndianTest = 1;
   VGImageFormat rgbaFormat;
@@ -45,11 +45,11 @@ uint8_t **images[MAX_IMAGES];
 // requestImage()
 // tint()
 
- int p5_imageWidth(int imageId) { return (iWidth[imageId]); }
+int p5_imageWidth(int imageId) { return (iWidth[imageId]); }
 
- int p5_imageHeight(int imageId) { return iHeight[imageId]; }
+int p5_imageHeight(int imageId) { return iHeight[imageId]; }
 
- void p5_image(int imageId, int x, int y, int w, int h) {
+void p5_image(int imageId, int x, int y, int w, int h) {
   VGPaint fill;
   if (w == 0)
     w = iWidth[imageId];
@@ -81,7 +81,7 @@ uint8_t **images[MAX_IMAGES];
   vgLoadMatrix(i_backup);
 }
 
- void p5_imageMode(int imageMode) { curr->imageMode = imageMode; }
+void p5_imageMode(int imageMode) { curr->imageMode = imageMode; }
 
 VGImage _createImageFromMemory(unsigned char const *buffer, int len, int *w,
                                int *h) {
@@ -149,14 +149,14 @@ VGImage _createImageFromFile(const char *filename, int *w, int *h) {
   return img;
 }
 
- int P5_ImportImage(uint8_t *buffer, int len) {
+int P5_ImportImage(uint8_t *buffer, int len) {
   imageCount++;
   images[imageCount] = _createImageFromMemory(buffer, len, &iWidth[imageCount],
                                               &iHeight[imageCount]);
   return imageCount;
 }
 
- int p5_loadImage(char *filename) {
+int p5_loadImage(char *filename) {
   imageCount++;
   images[imageCount] =
       _createImageFromFile(filename, &iWidth[imageCount], &iHeight[imageCount]);
@@ -173,11 +173,11 @@ VGImage _createImageFromFile(const char *filename, int *w, int *h) {
 // set()
 // updatePixels()
 
- void p5_loadPixels(int imageId) {
+void p5_loadPixels(int imageId) {
   VGImage image = images[imageId];
   int width = iWidth[imageId], height = iHeight[imageId];
   uint32_t n = width * height;
-  uint8_t** parray = malloc(sizeof(uint8_t) * n * 4 + 4);
+  uint8_t **parray = malloc(sizeof(uint8_t) * n * 4 + 4);
 
   unsigned int lilEndianTest = 1;
   VGImageFormat rgbaFormat;
@@ -193,7 +193,7 @@ VGImage _createImageFromFile(const char *filename, int *w, int *h) {
   (*parray)[3] = ((n)&0xFF);
 }
 
- void p5_updatePixels(int imageId, uint8_t **parray) {
+void p5_updatePixels(int imageId, uint8_t **parray) {
   VGImage image = images[imageId];
   int width = iWidth[imageId], height = iHeight[imageId];
 
@@ -211,10 +211,10 @@ VGImage _createImageFromFile(const char *filename, int *w, int *h) {
 // clip()
 // noClip()
 
- void p5_clip(int x, int y, int w, int h) {
+void p5_clip(int x, int y, int w, int h) {
   vgSetiv(VG_SCISSORING, VG_TRUE, 0);
   VGint coords[4] = {x, y, w, h};
   vgSetiv(VG_SCISSOR_RECTS, 4, coords);
 }
 
- void p5_noClip() { vgSetiv(VG_SCISSORING, VG_FALSE, 0); }
+void p5_noClip() { vgSetiv(VG_SCISSORING, VG_FALSE, 0); }

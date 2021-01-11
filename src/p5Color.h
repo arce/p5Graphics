@@ -16,7 +16,6 @@
 #include "p5Style.h"
 #include <stdint.h>
 
-extern struct Style *curr;
 extern VGPaint strokePaint;
 extern VGPaint fillPaint;
 

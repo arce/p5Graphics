@@ -155,6 +155,7 @@ int p5_mouseButton() { return mouseButton; }
 bool p5_isMousePressed() { return isEvent[MOUSE_PRESSED]; }
 
 void p5_mouseEvent(int button, int state, int xpos, int ypos) {
+	printf("%d %d %d %d",button,state,xpos,ypos);
   pmouseX = mouseX;
   pmouseY = mouseY;
   mouseX = xpos;
@@ -191,6 +192,11 @@ void p5_passiveMotionEvent(int xpos, int ypos) {
   mouseY = ypos;
   eventType = MOUSE_MOVED;
   isEvent[MOUSE_DRAGGED] = true;
+}
+
+void p5_cleanEvents() {
+	for (int i = 0; i < 8; i++)
+		isEvent[i] = false;
 }
 
 void p5_processEvents() {

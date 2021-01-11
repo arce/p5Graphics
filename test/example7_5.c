@@ -19,17 +19,17 @@ void setup() {
 
 void jiggleZoog(float speed) {
   // Change the x and y location of Zoog randomly
-  x = x + random(-1, 1)*speed;
-  y = y + random(-1, 1)*speed;
+  x = x + p5_random(-1, 1)*speed;
+  y = y + p5_random(-1, 1)*speed;
   // Constrain Zoog to window
-  x = constrain(x, 0, p5_width());
-  y = constrain(y, 0, p5_height());
+  x = p5_constrain(x, 0, p5_width());
+  y = p5_constrain(y, 0, p5_height());
 }
 
-void drawZoog(color eyeColor) {
+void drawZoog(int eyeColor) {
   // Set ellipses and rects to CENTER mode
-  p5_ellipseMode(CENTER);
-  p5_rectMode(CENTER);
+  p5_ellipseMode(P5_CENTER);
+  p5_rectMode(P5_CENTER);
   // Draw Zoog's arms with a for loop
   for (float i = y - h/3; i < y + h/2; i += 10) {
     p5_stroke(0);
@@ -58,7 +58,7 @@ void draw() {
 
   // A color based on distance from the mouse
   float d = dist(x, y, p5_mouseX(), p5_mouseY());
-  color c = color(d);
+  color c = p5_color(d,d,d,d);
 
   // mouseX position determines speed factor for moveZoog function
   float factor = p5_constrain(p5_mouseX()/10, 0, 5);

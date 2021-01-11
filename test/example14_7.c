@@ -10,7 +10,7 @@ float theta = 0.0;
 
 void setup() {
   p5_size(200, 200);
-  p5_frameRate(10);
+//  p5_frameRate(10);
 }
 
 void draw() {

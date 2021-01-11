@@ -1,5 +1,6 @@
-#include "glfw_window.h"
 #include <p5Graphics.h>
+#include "glfw_window.h"
+
 
 // Learning Processing
 // Daniel Shiffman
@@ -21,27 +22,27 @@ void drawPyramid(int t) {
   // the parameter " t " determines the size of the pyramid
   p5_beginShape(P5_TRIANGLES);
 
-  p5_fill(150, 0, 0, 127);
+  p5_fill(p5_color(150, 0, 0, 127));
   p5_vertex3d(-t, -t, -t);
 	p5_vertex3d( t, -t, -t);
   p5_vertex3d( 0, 0, t);
 
-  p5_fill(0, 150, 0, 127);
+  p5_fill(p5_color(0, 150, 0, 127));
   p5_vertex3d( t, -t, -t);
   p5_vertex3d( t, t, -t);
   p5_vertex3d( 0, 0, t);
 
-  p5_fill(0, 0, 150, 127);
+  p5_fill(p5_color(0, 0, 150, 127));
   p5_vertex3d( t, t, -t);
   p5_vertex3d(-t, t, -t);
   p5_vertex3d( 0, 0, t);
 
-  p5_fill(150, 0, 150, 127);
+  p5_fill(p5_color(150, 0, 150, 127));
   p5_vertex3d(-t, t, -t);
   p5_vertex3d(-t, -t, -t);
   p5_vertex3d( 0, 0, t);
 
-  p5_endShape();
+  p5_endShape(P5_CLOSE);
 }
 
 void draw() {

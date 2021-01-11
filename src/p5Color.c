@@ -1,6 +1,8 @@
 #include "p5Color.h"
 #include <stdbool.h>
 
+struct Style *curr;
+
 void _splitColor(float *arr, int32_t color) {
   arr[0] = (color & 0xFF000000) / 255.0;
   arr[1] = (color & 0x00FF0000) / 255.0;

@@ -18,14 +18,14 @@ void draw() {
   // x is available! Since it is declared within the draw() block of code, it is available here. 
   // Notice, however, that it is not available inside draw() above where it is declared. 
   // Also, it is available inside the while block of code because while is inside of draw().
-  while (x < width) {
+  while (x < p5_width()) {
     p5_stroke(255);
-    p5_line(x,0,x,height);
+    p5_line(x,0,x,p5_height());
     x += 15;
   }
 }
 
 void mousePressed() {
   // x is not available! It is local to the draw( ) block of code.
-  println( " The mouse was pressed! " );
+  printf( " The mouse was pressed! " );
 }

@@ -1,88 +1,68 @@
-#include <string.h>
-#include <stdlib.h>
-#include <VG/openvg.h>
 #include "p5Transform.h"
+#include <VG/openvg.h>
+#include <stdlib.h>
+#include <string.h>
 
-float backup[9];
+#define M_PI   3.14159265358979323846264338327950288
 
- Matrix *mtrx_new() {
-  Matrix *mtrx;
-  mtrx = malloc(sizeof(Matrix));
-  memset(mtrx,0,sizeof(Matrix));
-  mtrx->next = NULL;
-  return mtrx;
-}
+VGfloat *mtrx_stack = NULL;
+int mtr_ndx = 0;
 
- void p5_popMatrix() {
-  Matrix* temp = mtrx_stack;
-  mtrx_stack = mtrx_stack->next;
-  
+void p5_popMatrix() {
+  mtr_ndx -= 9;
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
-  vgLoadMatrix(temp->data);
+  vgLoadMatrix(mtrx_stack+sizeof(VGfloat)*mtr_ndx);
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
-  vgLoadMatrix(temp->data);
+  vgLoadMatrix(mtrx_stack+sizeof(VGfloat)*mtr_ndx);
 }
 
- void p5_printMatrix() {
-  Matrix* temp = mtrx_stack;
-  int i,j;
-  for (i=0;i<3;i++) {
-    for (j=0; j<3; j++)
-      printf("%f ",temp->data[i*3+j]);
-    printf("\n");
-  }
-}
-
- void p5_pushMatrix() {
-  Matrix* temp;
-  temp = mtrx_new();
-  
+void p5_pushMatrix() {
+	if (mtrx_stack == NULL)
+		mtrx_stack = malloc(sizeof(VGfloat)*900);
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
-  vgGetMatrix(temp->data);
-  vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
-  vgGetMatrix(temp->data);
-  temp->next = mtrx_stack;
-  mtrx_stack = temp;
+  vgGetMatrix(mtrx_stack+sizeof(VGfloat)*mtr_ndx);
+	mtr_ndx += 9;
 }
 
- void p5_resetMatrix() {
+void p5_resetMatrix() {
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
   vgLoadIdentity();
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
   vgLoadIdentity();
 }
 
- void p5_rotate(float angle) {
+void p5_rotate(float radians) {
+	float angle = radians * 57.2957795130823208768;
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
   vgRotate(angle);
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
   vgRotate(angle);
 }
 
- void p5_scale(int sx, int sy) {
+void p5_scale(int sx, int sy) {
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
-  vgScale(sx,sy);
+  vgScale(sx, sy);
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
-  vgScale(sx,sy);
+  vgScale(sx, sy);
 }
 
- void p5_shearX(float angle) {
+void p5_shearX(float angle) {
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
-  vgShear(angle,0.0f);
+  vgShear(angle, 0.0f);
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
-  vgShear(angle,0.0f);
+  vgShear(angle, 0.0f);
 }
 
- void p5_shearY(float angle) {
+void p5_shearY(float angle) {
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
-  vgShear(0.0f,angle);
+  vgShear(0.0f, angle);
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
-  vgShear(0.0f,angle);
+  vgShear(0.0f, angle);
 }
 
- void p5_translate(float dx, float dy) {
+void p5_translate(float dx, float dy) {
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
-  vgTranslate(dx,dy);
+  vgTranslate(dx, dy);
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
-  vgTranslate(dx,dy);
+  vgTranslate(dx, dy);
 }

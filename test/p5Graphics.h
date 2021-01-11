@@ -43,6 +43,10 @@
 #define KEY_RELEASED 6
 #define WINDOW_RESIZED 7
 
+typedef int PImage;
+typedef int PFont;
+typedef int color;
+
 void p5_exit();
 
 void p5_loop();
@@ -63,7 +67,7 @@ void p5_setupFunc(void (*func)());
 
 void p5_drawFunc(void (*func)());
 
-void p5_resizeFunc(void (*func)(int w, int h));
+void p5_sizeFunc(void (*func)(int w, int h));
 
 int p5_init(int w, int h);
 
@@ -167,6 +171,22 @@ void p5_shape(int pid, int w, int h);
 void p5_shapeMode(int shapeMode);
 
 // p5Input.h
+
+void p5_mouseMovedFunc(void (*func)(int x, int y));
+
+void p5_mouseDraggedFunc(void (*func)(int x, int y));
+
+void p5_mousePressedFunc(void (*func)(int key, int keyCode));
+
+void p5_mouseReleasedFunc(void (*func)(int x, int y));
+	
+void p5_mouseClickedFunc(void (*func)());
+
+void p5_keyPressedFunc(void (*func)(int key, int keyCode));
+
+void p5_keyReleasedFunc(void (*func)(int key, int keyCode));
+
+void p5_windowResizedFunc(void (*func)(int w, int h));
 
 int p5_mouseX();
 
