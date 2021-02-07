@@ -3,6 +3,10 @@
 
 struct Style *curr;
 
+int p5_width();
+
+int p5_height();
+
 void _splitColor(float *arr, int32_t color) {
   arr[0] = (color & 0xFF000000) / 255.0;
   arr[1] = (color & 0x00FF0000) / 255.0;
@@ -16,12 +20,12 @@ inline uint32_t toRGBA(uint32_t argb) {
       ((argb & 0xFF) << 24) |
       ((argb & 0xFF) << 16) |
       ((argb & 0xFF) << 8) |
-			((0xFF) << 0);
+      ((0xFF) << 0);
   else return
       ((argb & 0xFF000000) >> 24) |
       ((argb & 0x00FF0000) << 8) |
       ((argb & 0x0000FF00) << 8) |
-			((argb & 0x000000FF) << 8);
+      ((argb & 0x000000FF) << 8);
 }
 
 void p5_background(int32_t argb) {
@@ -63,9 +67,9 @@ int p5_blue(int32_t rgba) { return ((rgba >> 8) & 0xFF); }
 int32_t p5_color(int r, int g, int b, int a) {
   int32_t argb =
       ((a & 0xFF) << 24) |
-		  ((r & 0xFF) << 16) |
-			((g & 0xFF) << 8) |
-			 (b & 0xFF);
+      ((r & 0xFF) << 16) |
+      ((g & 0xFF) << 8) |
+      (b & 0xFF);
   return argb;
 }
 

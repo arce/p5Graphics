@@ -5,9 +5,6 @@
 #define STB_TRUETYPE_IMPLEMENTATION
 #include <STB/stb_truetype.h>
 
-float m_backup[9];
-
-unsigned char ttf_buffer[1 << 24];
 int textLeading;
 int fontCount = 0;
 VGFont fonts[100];
@@ -17,6 +14,10 @@ int fSize[100];
 char mainPath[256];
 
 extern struct Style *curr;
+
+unsigned char ttf_buffer[1 << 24];
+
+extern VGfloat VG_GLYPH_ORIGIN[2];
 
 VGFont _createFontFromFile(const char *filename, unsigned short size) {
   stbtt_fontinfo font;
@@ -98,7 +99,7 @@ VGFont _createFontFromFile(const char *filename, unsigned short size) {
 }
 
 VGFont _loadFontFromFile(const char *filename, unsigned short size) {
-
+  unsigned char ttf_buffer[1 << 24];
   stbtt_fontinfo font;
   VGubyte *bitmap;
   float scale, xpos = 2;
@@ -145,11 +146,12 @@ VGFont _loadFontFromFile(const char *filename, unsigned short size) {
   return fontCount;
 }
 
+float backup[9];
+
  void p5_text(char *str, int x, int y) {
   VG_GLYPH_ORIGIN[0] = 0;
   VG_GLYPH_ORIGIN[1] = 0;
-  int i;
-  for (i = 0; i < strlen(str); i++)
+  for (int i = 0; i < strlen(str); i++)
     vgDrawGlyph(fonts[curr->fontId], str[i], 0, false);
 
   int tWidth = VG_GLYPH_ORIGIN[0];
@@ -174,14 +176,15 @@ VGFont _loadFontFromFile(const char *filename, unsigned short size) {
                       x,
                       y,
                       1.0f};
+
   vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
-  vgGetMatrix(m_backup);
+  vgGetMatrix(backup);
   vgMultMatrix(matrix);
 
-  for (i = 0; i < strlen(str); i++)
+  for (int i = 0; i < strlen(str); i++)
     vgDrawGlyph(fonts[curr->fontId], str[i], VG_FILL_PATH, false);
 
-  vgLoadMatrix(m_backup);
+  vgLoadMatrix(backup);
 }
 
  void p5_textFont(int id) { curr->fontId = id; }
@@ -193,7 +196,7 @@ VGFont _loadFontFromFile(const char *filename, unsigned short size) {
 
  void p5_textLeading(int textLead) { textLeading = textLead; }
 
- void p5_textSize(int id) { fHeight[curr->fontId] = fSize[curr->fontId] = id; }
+ void p5_textSize(int size) { fHeight[curr->fontId] = fSize[curr->fontId] = size; }
 
  int p5_textWidth(char *str) {
   VG_GLYPH_ORIGIN[0] = 0;

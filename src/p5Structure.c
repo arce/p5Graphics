@@ -24,7 +24,7 @@ VGfloat reset[] = {1.0f, 0.0f, 0.0f,0.0f, -1.0f,0.0f, 0.0f, 0, 1.0f};
 
 void p5_mainLoop() {
   while (loop) {
-		p5_processEvents();
+	p5_processEvents();
     vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
     vgLoadMatrix(reset);
     vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);

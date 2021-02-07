@@ -55,6 +55,4 @@ typedef struct {
 
 #define _ITEM_T SHFont*
 
-static VGfloat VG_GLYPH_ORIGIN[2] = {0,0};
-
 #endif /* __SHFONT_H */

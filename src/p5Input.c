@@ -11,23 +11,12 @@
  --
  */
 
-#define P5_BACKSPACE 100
-#define P5_TAB 101
-#define P5_ENTER 102
-#define P5_RETURN 103
-#define P5_ESC 104
-#define P5_DELETE 105
-
-#define P5_LEFT 6
-#define P5_RIGHT 7
-#define P5_MIDDLE 8
-
-#define MOUSE_MOVED 0
-#define MOUSE_DRAGGED 1
-#define MOUSE_PRESSED 2
-#define MOUSE_RELEASED 3
-#define MOUSE_CLICKED 4
-#define KEY_PRESSED 5
+#define MOUSE_PRESSED 0
+#define KEY_PRESSED 1
+#define MOUSE_RELEASED 2
+#define MOUSE_MOVED 3
+#define MOUSE_DRAGGED 4
+#define MOUSE_CLICKED 5
 #define KEY_RELEASED 6
 #define WINDOW_RESIZED 7
 
@@ -58,66 +47,52 @@
 #include "p5Input.h"
 #include "stdlib.h"
 
-#define MOUSE_MOVED 0
-#define MOUSE_DRAGGED 1
-#define MOUSE_PRESSED 2
-#define MOUSE_RELEASED 3
-#define MOUSE_CLICKED 4
-#define KEY_PRESSED 5
-#define KEY_RELEASED 6
-#define WINDOW_RESIZED 7
-
-int mouseButton;
+int mouseButton, mouseState;
 int pmouseX, mouseX, pmouseY, mouseY;
-int keyCode;
-int eventType;
+int keyCode, eventType;
 
-char keyPress[2] = "X\0";
-
-char *eventArray[] = {"mouseMoved",    "mouseDragged", "mousePressed",
-                      "mouseReleased", "mouseClicked", "keyPressed",
-                      "keyReleased",   "windowResized"};
+char keyPress;
 
 bool isEvent[] = {false, false, false, false, false, false, false, false};
 
 bool eventFunc[] = {false, false, false, false, false, false, false, false};
 
-bool event[] = {false, false, false, false, false, false, false, false};
+int p5_width();
 
-void (*mouseMoved_func)(int x, int y) = NULL;
+int p5_height();
 
-void (*mouseDragged_func)(int x, int y) = NULL;
+void (*mouseMoved_func)() = NULL;
 
-void (*mousePressed_func)(int key, int keyCode) = NULL;
+void (*mouseDragged_func)() = NULL;
 
-void (*mouseReleased_func)(int x, int y) = NULL;
+void (*mousePressed_func)() = NULL;
+
+void (*mouseReleased_func)() = NULL;
 
 void (*mouseClicked_func)() = NULL;
 
-void (*keyPressed_func)(int key, int keyCode) = NULL;
+void (*keyPressed_func)() = NULL;
 
-void (*keyReleased_func)(int key, int keyCode) = NULL;
+void (*keyReleased_func)() = NULL;
 
 void (*windowResized_func)(int w, int h) = NULL;
 
-int LEFT_BUTTON, RIGHT_BUTTON, MIDDLE_BUTTON, DOWN;
-
-void p5_mouseMovedFunc(void (*func)(int x, int y)) {
+void p5_mouseMovedFunc(void (*func)()) {
   eventFunc[MOUSE_MOVED] = true;
   mouseMoved_func = func;
 }
 
-void p5_mouseDraggedFunc(void (*func)(int x, int y)) {
+void p5_mouseDraggedFunc(void (*func)()) {
   eventFunc[MOUSE_DRAGGED] = true;
   mouseDragged_func = func;
 }
 
-void p5_mousePressedFunc(void (*func)(int key, int keyCode)) {
+void p5_mousePressedFunc(void (*func)()) {
   eventFunc[MOUSE_PRESSED] = true;
   mousePressed_func = func;
 }
 
-void p5_mouseReleasedFunc(void (*func)(int x, int y)) {
+void p5_mouseReleasedFunc(void (*func)()) {
   eventFunc[MOUSE_RELEASED] = true;
   mouseReleased_func = func;
 }
@@ -127,12 +102,12 @@ void p5_mouseClickedFunc(void (*func)()) {
   mouseClicked_func = func;
 }
 
-void p5_keyPressedFunc(void (*func)(int key, int keyCode)) {
+void p5_keyPressedFunc(void (*func)()) {
   eventFunc[KEY_PRESSED] = true;
   keyPressed_func = func;
 }
 
-void p5_keyReleasedFunc(void (*func)(int key, int keyCode)) {
+void p5_keyReleasedFunc(void (*func)()) {
   eventFunc[KEY_RELEASED] = true;
   keyReleased_func = func;
 }
@@ -154,25 +129,15 @@ int p5_mouseButton() { return mouseButton; }
 
 bool p5_isMousePressed() { return isEvent[MOUSE_PRESSED]; }
 
-void p5_mouseEvent(int button, int state, int xpos, int ypos) {
-	printf("%d %d %d %d",button,state,xpos,ypos);
-  pmouseX = mouseX;
-  pmouseY = mouseY;
-  mouseX = xpos;
-  mouseY = ypos;
-  if (button == LEFT_BUTTON) {
-    mouseButton = P5_LEFT;
-  } else if (button == RIGHT_BUTTON) {
-    mouseButton = P5_RIGHT;
-  } else {
-    mouseButton = P5_MIDDLE;
-  }
-  if (state == DOWN) {
-    eventType = MOUSE_PRESSED;
+void p5_mouseEvent(int button, int state) {
+  mouseButton = button;
+  mouseState = state;
+  if (mouseState == P5_PRESS)
     isEvent[MOUSE_PRESSED] = true;
-  } else {
-    eventType = MOUSE_RELEASED;
+  else { 
     isEvent[MOUSE_RELEASED] = true;
+    isEvent[MOUSE_CLICKED] = true;
+    isEvent[MOUSE_PRESSED] = false;
   }
 }
 
@@ -181,53 +146,46 @@ void p5_motionEvent(int xpos, int ypos) {
   pmouseY = mouseY;
   mouseX = xpos;
   mouseY = ypos;
-  eventType = MOUSE_DRAGGED;
-  isEvent[MOUSE_DRAGGED] = true;
-}
-
-void p5_passiveMotionEvent(int xpos, int ypos) {
-  pmouseX = mouseX;
-  pmouseY = mouseY;
-  mouseX = xpos;
-  mouseY = ypos;
-  eventType = MOUSE_MOVED;
-  isEvent[MOUSE_DRAGGED] = true;
+  if (mouseState == P5_PRESS)
+    isEvent[MOUSE_DRAGGED] = true;
+  else
+    isEvent[MOUSE_MOVED] = true;
 }
 
 void p5_cleanEvents() {
-	for (int i = 0; i < 8; i++)
-		isEvent[i] = false;
+  for (int i = 2; i < 8; i++)
+    isEvent[i] = false;
 }
 
 void p5_processEvents() {
   for (int i = 0; i < 8; i++) {
-    if (isEvent [i] && eventFunc[i]) {
+    if (isEvent[i] && eventFunc[i]) {
       switch (i) {
       case MOUSE_MOVED:
-        (*mouseMoved_func)(mouseX, mouseY);
+        (*mouseMoved_func)();
         break;
       case MOUSE_DRAGGED:
-        (*mouseDragged_func)(mouseX, mouseY);
-				 break;
+        (*mouseDragged_func)();
+        break;
       case MOUSE_PRESSED:
-        (*mousePressed_func)(mouseX, mouseY);
-				 break;
+        (*mousePressed_func)();
+        break;
       case MOUSE_RELEASED:
-        (*mouseReleased_func)(mouseX, mouseY);
-				 break;
+        (*mouseReleased_func)();
+        break;
       case MOUSE_CLICKED:
-        (*mouseClicked_func)(mouseX, mouseY);
-				 break;
+        (*mouseClicked_func)();
+        break;
       case KEY_PRESSED:
-        (*keyPressed_func)(keyPress[0], keyCode);
-				 break;
+        (*keyPressed_func)();
+        break;
       case KEY_RELEASED:
-        (*keyPressed_func)(keyPress[0], keyCode);
-				 break;
+        (*keyReleased_func)();
+        break;
       case WINDOW_RESIZED:
         (*windowResized_func)(p5_width(), p5_height());
       }
-		}
+    }
   }
 }
 // Keyboard:
@@ -239,7 +197,7 @@ void p5_processEvents() {
 // keyTyped()
 
 void p5_keyPressedEvent(char key, int code) {
-  keyPress[0] = key;
+  keyPress = key;
   keyCode = code;
   eventType = KEY_PRESSED;
   isEvent[KEY_PRESSED] = true;
@@ -249,10 +207,11 @@ void p5_keyReleasedEvent(char key, int code) {
   keyCode = code;
   eventType = KEY_RELEASED;
   isEvent[KEY_RELEASED] = true;
+  isEvent[KEY_PRESSED] = false;
 }
 
 int p5_isKeyPressed() { return isEvent[KEY_PRESSED]; }
 
-int p5_key() { return keyPress; }
+char p5_key() { return keyPress; }
 
 int P5_keyCode() { return keyCode; }

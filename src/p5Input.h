@@ -20,14 +20,8 @@
 #define P5_ESC 104
 #define P5_DELETE 105
 
-#define MOUSE_MOVED 0
-#define MOUSE_DRAGGED 1
-#define MOUSE_PRESSED 2
-#define MOUSE_RELEASED 3
-#define MOUSE_CLICKED 4
-#define KEY_PRESSED 5
-#define KEY_RELEASED 6
-#define WINDOW_RESIZED 7
+#define P5_PRESS 9
+#define P5_RELEASE 10
 
 // Input:
 //
@@ -81,11 +75,9 @@ int p5_mouseButton();
 
 bool p5_isMousePressed();
 
-void p5_mouseEvent(int button, int state,int xpos, int ypos);
+void p5_mouseEvent(int button, int state);
 
 void p5_motionEvent(int xpos, int ypos);
-
-void p5_passiveMotionEvent(int xpos, int ypos);
 
 void p5_keyPressedEvent(char key, int code);
 
@@ -93,6 +85,6 @@ void p5_keyReleasedEvent(char key, int code);
 
 int p5_isKeyPressed();
 
-int p5_key();
+char p5_key();
 
 int p5_keyCode();
