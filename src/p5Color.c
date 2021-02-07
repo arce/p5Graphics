@@ -14,7 +14,7 @@ void _splitColor(float *arr, int32_t color) {
   arr[3] = (color & 0x000000FF) / 255.0;
 }
 
-inline uint32_t toRGBA(uint32_t argb) {
+uint32_t toRGBA(uint32_t argb) {
   if (argb < 256)
     return
       ((argb & 0xFF) << 24) |

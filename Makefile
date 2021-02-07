@@ -15,7 +15,7 @@ ifeq ($(OS), Windows_NT)
   CC = x86_64-w64-mingw32-gcc
   LD = x86_64-w64-mingw32-gcc
   EXE = libp5graphics.dll
-  LDLIBS = -lopengl32 -lglu32 -lgdi32
+  LDLIBS = -lopengl32 -lglu32 -lgdi32 libOpenVG.dll
   LDFLAGS = -shared
 else
 # OS X
