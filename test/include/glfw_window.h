@@ -75,7 +75,11 @@ int main() {
   glfwSetKeyCallback(window, key_callback);
 
   glfwMakeContextCurrent(window);
-  gladLoadGL();
+  
+  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+    printf("Failed to initialize GLAD");
+  }
+  //gladLoadGL();
   glfwSwapInterval(1);
   glfwSetWindowSize(window, 640, 480);
 

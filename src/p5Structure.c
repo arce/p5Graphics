@@ -20,19 +20,19 @@ void p5_exit() { done = true; }
 
 void p5_loop() { loop = true; }
 
-VGfloat reset[] = {1.0f, 0.0f, 0.0f,0.0f, -1.0f,0.0f, 0.0f, 0, 1.0f};
+VGfloat reset[] = {1.0f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0, 1.0f};
 
 void p5_mainLoop() {
   while (loop) {
-	p5_processEvents();
+    p5_processEvents();
     vgSeti(VG_MATRIX_MODE, VG_MATRIX_PATH_USER_TO_SURFACE);
     vgLoadMatrix(reset);
     vgSeti(VG_MATRIX_MODE, VG_MATRIX_IMAGE_USER_TO_SURFACE);
     vgLoadMatrix(reset);
     (*draw_func)();
-		vgFinish();
+    vgFinish();
     _frameCount++;
-		p5_cleanEvents();
+    p5_cleanEvents();
   }
 }
 
@@ -55,9 +55,9 @@ Style *newStyle() {
   tmp->ellipseMode = P5_CENTER;
   tmp->shapeMode = P5_CORNER;
   tmp->textMode = P5_MODEL;
-	tmp->alignX = P5_LEFT;
-	tmp->alignY = P5_BASELINE;
-	tmp->fontId = 0;
+  tmp->alignX = P5_LEFT;
+  tmp->alignY = P5_BASELINE;
+  tmp->fontId = 0;
   tmp->next = NULL;
   return tmp;
 }
@@ -97,9 +97,9 @@ void p5_pushStyle() {
   tmp->ellipseMode = curr->ellipseMode;
   tmp->shapeMode = curr->shapeMode;
   tmp->textMode = curr->textMode;
-	tmp->alignX = curr->alignX;
-	tmp->alignY = curr->alignY;
-	tmp->fontId = curr->fontId;
+  tmp->alignX = curr->alignX;
+  tmp->alignY = curr->alignY;
+  tmp->fontId = curr->fontId;
   tmp->next = curr;
   curr = tmp;
 }
@@ -128,7 +128,7 @@ int p5_init(int w, int h) {
 
   _width = w;
   _height = h;
-	reset[7] = _height;
+  reset[7] = _height;
   strokePaint = vgCreatePaint();
   vgSetParameteri(strokePaint, VG_PAINT_TYPE, VG_PAINT_TYPE_COLOR);
 
@@ -166,9 +166,9 @@ void p5_noSmooth() {}
 void p5_size(int width, int height) {
   _width = width;
   _height = height;
-	reset[7] = _height;
-	(*size_func)(width,height);
-	vgResizeSurfaceSH(width,height);
+  reset[7] = _height;
+  (*size_func)(width, height);
+  vgResizeSurfaceSH(width, height);
 }
 
 void p5_smooth() {}

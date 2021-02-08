@@ -1,12 +1,12 @@
 # Linux (default)
 
-RM=rm
+RM = rm -vf
 SRC_DIR = src
 OBJ_DIR = obj
 
 SOURCES = $(wildcard $(SRC_DIR)/*.c)
 OBJECTS = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-EXECS=$(SOURCES:%.c=%)
+EXECS = $(SOURCES:%.c=%)
 
 CFLAGS += -w -I./include 
 LDLIBS = -lGL -lGLU -lglut -lglfw -ldl -lOpenVG -lp5graphics
@@ -25,16 +25,9 @@ endif
 
 endif
 
-.PHONY: all
+.PHONY: all clean
+
 all: $(EXECS)
-
-$(EXECS):$(OBJECTS)
-	$(CC) $(CFLAGS) $< -o $@
-
-.o.: 
-	$(CC) $^ $(LDFLAGS) -o $@
-
-.PHONY: clean
+	
 clean:
-	-@ $(RM) *.o 
-	-@ $(RM) $(EXECS)
+	$(RM) $(OBJECTS) $(EXECS) *~
