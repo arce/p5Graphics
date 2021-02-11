@@ -9,14 +9,15 @@ OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 CFLAGS += -w -Os -fno-common -I./include
 LDLIBS = -lGL -lGLU -lglut -ldl
 
-# OS = "Windows_NT"
+#OS = Windows_NT
 # Windows (cygwin)
 ifeq ($(OS), Windows_NT)
   CC = x86_64-w64-mingw32-gcc
   LD = x86_64-w64-mingw32-gcc
   EXE = libp5graphics.dll
-  LDLIBS = -lopengl32 -lglu32 -lgdi32 libOpenVG.dll
+  LDLIBS = -L. -lglu32 -lopengl32 -lOpenVG
   LDFLAGS = -shared
+  CFLAGS = -I./include
 else
 # OS X
 ifeq "$(shell uname)" "Darwin"

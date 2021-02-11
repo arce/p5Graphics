@@ -1,4 +1,3 @@
-#include <glad/glad.h>
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
@@ -58,16 +57,16 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 int main() {
 
   if (!glfwInit())
-    exit(EXIT_FAILURE);
+    exit(-1);
 
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-  glfwWindowHint(GLFW_DOUBLEBUFFER,GL_FALSE);
+  glfwWindowHint(GLFW_DOUBLEBUFFER,GLFW_FALSE);
 
   window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
   if (!window) {
     glfwTerminate();
-    exit(EXIT_FAILURE);
+    exit(-1);
   }
 
   glfwSetCursorPosCallback(window, cursor_position_callback);
@@ -76,10 +75,6 @@ int main() {
 
   glfwMakeContextCurrent(window);
   
-  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-    printf("Failed to initialize GLAD");
-  }
-  //gladLoadGL();
   glfwSwapInterval(1);
   glfwSetWindowSize(window, 640, 480);
 
@@ -94,5 +89,5 @@ int main() {
   glfwDestroyWindow(window);
 
   glfwTerminate();
-  exit(EXIT_SUCCESS);
+  exit(-1);
 }
