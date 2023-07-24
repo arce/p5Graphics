@@ -7,8 +7,9 @@ RM = rm -f
 
 UNAME := $(shell uname)
 
+OS = Windows_NT
 # Windows (cygwin)
-ifeq "$(OS)" "Windows_NT"
+ifeq "$(OS)" Windows_NT
   LDFLAGS = -lopengl32 -lglu32 -lglut32
   CFLAGS += -D_WIN32
 endif

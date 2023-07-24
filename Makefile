@@ -1,5 +1,5 @@
 # Linux (default)
-EXE = libp5graphics.a
+EXE = lib/libp5graphics.so
 SRC_DIR = src
 OBJ_DIR = obj
 
@@ -14,15 +14,15 @@ LDLIBS = -lGL -lGLU -lglut -ldl
 ifeq ($(OS), Windows_NT)
   CC = x86_64-w64-mingw32-gcc
   LD = x86_64-w64-mingw32-gcc
-  EXE = libp5graphics.dll
-  LDLIBS = -L. -lglu32 -lopengl32 -lOpenVG
+  EXE = lib/libp5graphics.dll
+  LDLIBS = -L./lib -lglu32 -lopengl32 -lopenvg
   LDFLAGS = -shared
   CFLAGS = -I./include
 else
 # OS X
 ifeq "$(shell uname)" "Darwin"
-  EXE = libp5graphics.dylib
-  LDLIBS = -framework Carbon -framework OpenGL
+  EXE = lib/libp5graphics.dylib
+  LDLIBS = -L./lib -framework Carbon -framework OpenGL -lopenvg
   LDFLAGS = -dynamiclib -undefined suppress -flat_namespace
 endif
 
